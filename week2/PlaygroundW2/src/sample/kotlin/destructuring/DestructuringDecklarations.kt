@@ -1,5 +1,7 @@
 package sample.kotlin
 
+import sample.kotlin.conditional.WeatherColor
+
 /**
  * Data class declaram automaticamente funcoes denomeidadas
  * component1 ... componentN, que sao utilizadas para podermos usar

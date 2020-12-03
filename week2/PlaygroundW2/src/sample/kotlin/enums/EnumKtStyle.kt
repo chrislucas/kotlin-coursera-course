@@ -1,4 +1,4 @@
-package sample.kotlin
+package sample.kotlin.enums
 
 import sample.kotlin.enums.Direction
 import sample.kotlin.enums.EnumUtils.genPrintValues
