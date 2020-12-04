@@ -49,9 +49,19 @@ import kotlin.math.sqrt
  * Formas de instanciar uma Function Type (Resumo)
  *  - code block
  *      - lambda expression
- *          val p: { a, b, c ... -> operacao vai aqui }
- *           (a: Int, b: Int) -> Unit = {a, b -> println("$a, $b")} // da pra omitir o nome dos parametros
+ *          - val p: { a: A, b: B, c: C ... -> operacao vai aqui }
+*
+*           - (a: Int, b: Int) -> Unit = {a, b -> println("$a, $b")} // da pra omitir o nome dos parametros
+ *
+ *          - uma terceira forma de escrever lambda exrepssion
+ *              val fn = {a: A, b: B ... -> R -> 'algoritmo vai aqui' }
+ *              // o compilador infere que a instrucao acima eh a seguinte
+ *              (A, B, ... ) -> R = { 'algoritmo vai aqui' }
+ *
+ *
  *      - anonymous function: fun(data: T) -> R { op here }
+ *
+ *
  *  - Atraves do chamado callable reference
  *      - ::nomedafuncao
  *          Exemplo: ::println, ::isEmpty
