@@ -15,15 +15,7 @@ enum class Color {
 enum class CromaticClassification {
     PRIMARY, SECONDARY, TERTIARY
 }
-/*
-fun Color.cromaticClassification(): CromaticClassification {
-    return when (this) {
-        Color.BLUE, Color.YELLOW, Color.RED -> CromaticClassification.PRIMARY
-        Color.GREEN, Color.ORANGE, Color.PURPLE -> CromaticClassification.SECONDARY
-        else -> CromaticClassification.TERTIARY
-    }
-}
-*/
+
 fun Pair<Color, Color>.isSecondaryOrTertiary(): CromaticClassification {
     val (p, q) = this
     return when(setOf(p.cromaticClassification, q.cromaticClassification)) {
