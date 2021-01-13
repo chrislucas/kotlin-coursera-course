@@ -4,7 +4,8 @@ package sample.java.innerclasses;
 public class Graph {
 
     // interfaces aninhadas sao sempre considera estaticas, portando nunca Inner Class
-    public interface Navigation{}
+    public interface Navigation {
+    }
 
     // Essa eh uma Inner class
     class Vertex {
@@ -18,12 +19,14 @@ public class Graph {
         // static { }
     }
 
-    private class Representation2D extends Representation {}
+    private class Representation2D extends Representation {
+    }
 
     // Nest class mas nao Inner class
     static class Representation {
         static int id = 0x0f;
         static final String descriptionId = "0x0f";
+
         static {
             System.out.println("Classe para uma possivel representacao do grafico");
         }
@@ -32,7 +35,7 @@ public class Graph {
     //private static final Representation2D rep = new Graph().new Representation2D();
 
     public static void main(String[] args) {
-        System.out.println(Representation2D.id);
+        System.err.println(Representation2D.id);
     }
 
 }

@@ -7,3 +7,10 @@
 ContinuationPassingStyle.iml
 .idea/vcs.xml
 .idea/
+.gradle/
+build.gradle
+gradle/wrapper/gradle-wrapper.properties
+gradlew
+gradlew.bat
+settings.gradle
+src/

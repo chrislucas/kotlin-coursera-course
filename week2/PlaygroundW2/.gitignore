@@ -1,6 +1,4 @@
-
-.idea/sonarlint/
 /out/
-/.idea/
+.idea/
 /out/production/
-/out/**
+/.idea/codeStyles/Project.xml
