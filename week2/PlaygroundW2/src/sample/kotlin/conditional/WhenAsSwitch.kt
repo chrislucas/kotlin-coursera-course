@@ -24,7 +24,6 @@ fun Pair<Color, Color>.isSecondaryOrTertiary(): CromaticClassification {
     }
 }
 
-
 fun main() {
     println("${Color.ORANGE_RED}:${Color.ORANGE_RED.cromaticClassification}")
     println("${Color.YELLOW}:${Color.YELLOW.cromaticClassification}")
