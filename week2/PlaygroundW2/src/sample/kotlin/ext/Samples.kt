@@ -1,6 +1,5 @@
 package sample.kotlin.ext
 
-
 fun testJoinToString() {
     var jointed = listOf("a", "c", "e")
         .joinToString(separator = "|", prefix = "{", postfix = "}")
@@ -48,9 +47,12 @@ fun Point2D.Companion.staticExtFunction() {
 
 fun Point2D.log() { println(this) }
 
+
 fun main() {
     //extIterateWithIndex()
-    val p = Point2D(2.0, 3.0)
-    p.log()
-    Point2D.staticExtFunction()
+    //val p = Point2D(2.0, 3.0)
+    //p.log()
+    //Point2D.staticExtFunction()
+
+
 }
