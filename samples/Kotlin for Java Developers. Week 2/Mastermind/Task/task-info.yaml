@@ -3,14 +3,14 @@ files:
 - name: src/mastermind/evaluateGuess.kt
   visible: true
   placeholders:
-  - offset: 158
-    length: 6
+  - offset: 232
+    length: 2537
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 158
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
   text: |
     package mastermind
@@ -256,6 +256,9 @@ files:
 - name: assignmentKey
   visible: false
   learner_created: false
+- name: raw/refs
+  visible: true
+  learner_created: true
 feedback_link: https://www.coursera.org/learn/kotlin-for-java-developers/programming/vmwVT/mastermind-game/discussions
 status: Unchecked
 record: -1

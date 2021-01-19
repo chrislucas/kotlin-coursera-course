@@ -18,12 +18,12 @@ fun playMastermind(
 
     do {
         print("Your guess: ")
-        var guess = readLine()!!
+        var guess = readLine() ?: ""
         while (hasErrorsInInput(guess)) {
             println("Incorrect input: $guess. " +
                     "It should consist of $CODE_LENGTH characters from $ALPHABET. " +
                     "Please try again.")
-            guess = readLine()!!
+            guess = readLine() ?: ""
         }
         evaluation = evaluateGuess(secret, guess)
         if (evaluation.isComplete()) {
