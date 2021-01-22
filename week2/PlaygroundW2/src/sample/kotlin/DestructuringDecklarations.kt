@@ -37,10 +37,8 @@ fun testDestructuringDeclaration() {
     println("$x, $y, $z")
 }
 
-fun testDestructuingInMapDS() {
-
+fun testDestructuringInMapDS() {
     val map = mutableMapOf<Int,Pair<String, WeatherColor>>()
-
     for (i in 0 .. 100) {
         map[i] = when  {
             i < 10 -> Pair("cold", WeatherColor.BLUE)
@@ -48,14 +46,12 @@ fun testDestructuingInMapDS() {
             else -> Pair("hot", WeatherColor.RED)
         }
     }
-    
     // destructurin declaration
     for ( (i,p) in map) {
         println("$i, $p")
     }
 }
 
-
 fun main(args: Array<String>) {
-    testDestructuingInMapDS()
+    testDestructuringInMapDS()
 }

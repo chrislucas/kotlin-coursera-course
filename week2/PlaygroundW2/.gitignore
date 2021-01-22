@@ -1,0 +1,6 @@
+
+.gitignore
+.idea/sonarlint/
+/.idea/
+/out/
+PlaygroundW2.iml
