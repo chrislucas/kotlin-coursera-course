@@ -1,6 +1,7 @@
-
-.gitignore
-.idea/sonarlint/
-/.idea/
 /out/
-PlaygroundW2.iml
+.idea/
+/out/production/
+/.idea/codeStyles/Project.xml
+/build/
+/out/production/PlaygroundW2/META-INF/
+/out/production/PlaygroundW2/sample/

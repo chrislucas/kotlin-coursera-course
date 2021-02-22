@@ -1,0 +1,84 @@
+Kotlin Continuation - Links
+https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/
+https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation.html
+https://jorgecastillo.dev/digging-into-kotlin-continuations
+
+**************************************************************************************************
+https://en.wikipedia.org/wiki/Continuation-passing_style
+
+
+**************************************************************************************************
+
+https://en.wikipedia.org/wiki/Continuation
+
+Continuantion:
+
+In Computer Science, a continuation is an abstract representation of the control state of a computer program.
+
+    - A continauton reifies (implements the abstraction makes it concrete) the control state
+    - It is a data structure that represents the computational process at a given point int the
+    process's execution.
+
+First class continuation: A data structure that give a programming language the ability to save
+the execution state at any point, and return to that point at a later point in the programming.
+It can be done multiple times if necessary.
+
+First Class Continuation (FCC) can be used to:
+
+
+    The fcc is defined as a language's hability to completely control the execution order of instructions
+
+
+    - To jump to a function that produced the call to the current function
+    - To jump to a function tha had previously exited
+
+    "We can think of a FCC as saving the execution state of program"
+
+    It is important to note that true FCC don't save program data, only execution context.
+
+Continuation are also used in models of computation
+
+    - denotational semantics (https://en.wikipedia.org/wiki/Denotational_semantics)
+
+    - Actor Models (https://en.wikipedia.org/wiki/Actor_model)
+        - In CS actor model is a math model of concurrent computation that treats actor as
+        the universal primitive of concurrent computation
+
+        Em resposta a uma mensagemn recebida um Actor pode
+            - Tomar decisoes locais
+            - Criar mais Actors
+            - Enviar mais mensagens
+            - E determinar como responde a proxima mensagem recebida
+        Actors podem modificar o seus proprios estados
+            - Porem so conseguem afetar outros atores indiretamente atraves de troca de mensagens
+                - Removendo a necessidade de lock based sync
+                (https://en.wikipedia.org/wiki/Lock_(computer_science))
+
+
+Programadores que utilizam linguagens com recursos de programacao funcional (e linguagens puramente funcionais)
+que escrevem seus programas usando Continuation Passing Style ganham um poder de manipulacao de controle de fluxo
+
+    - Porém existe um custo ao utilizar esse recurso
+        - Ter que gerenciar/implementar por conta própria formas de manter
+        a invariancia de controle e continuation.
+        - Manter essa implementacao pode se tornar altamente complexo
+
+Pesquisar por: the invariants of control and continuations in Continuation passing Style
+
+Links:
+https://dev.to/theodesp/behind-continuations-passing-style-practical-examples-ingo
+
+Continuation-Passing C
+Compiling threads to events through continuations
+https://www.irif.fr/~jch/research/cpc-2012.pdf
+
+*************************************************************************************************************
+
+CPS ou Continuation passing style:
+https://en.wikipedia.org/wiki/Continuation-passing_style
+
+Continuation: Definicao no ambito de ciencias da computacao
+https://en.wikipedia.org/wiki/Continuation
+
+
+kotlin continuation

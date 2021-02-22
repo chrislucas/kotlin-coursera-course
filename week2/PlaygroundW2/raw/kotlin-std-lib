@@ -1,0 +1,11 @@
+https://www.coursera.org/learn/kotlin-for-java-developers/lecture/rn8SY/examples-from-the-standard-library
+
+
+kotlin std lib = Java std lib + kotlin extensions
+    - hashMapOf, setOf, listOf (HashMap.java, Set.java, List.java)
+
+There is not Kotlin SDK
+    Kotlin SDK = Java SDK + Extensions
+    - this give us
+        - small runtime jar
+        - easy java interop

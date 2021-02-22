@@ -1,0 +1,5 @@
+https://kotlinlang.org/docs/reference/lambdas.html#lambda-expression-syntax
+
+A sintaxe completa de uma lambda expression
+
+val umNomeQualquer = {p: P, q : Q ... (n parametros) -> (segue o algoritmo que se quer implementar) }

@@ -1,0 +1,12 @@
+Nullable Types
+
+String?, Int?, Long?
+
+Kotlin resolve o problema de valores nulos de 2 formas
+    1) Atraves das annotation @Nullable, @NotNull. Essa solucao nao tras nenhum custo computacional extra
+    2) Atraves da classe Optional<T?> que encapsula o objeto que pode ser nulo. Essa solucao tras o custom
+    extra de ter que criar um objeto que encapsula um outro objeto que pode ou nao ser nulo
+
+
+fun fn(): String = ":" -> @NotNull public static final String fn() { return ":"}
+fun fn(): String? = ":" -> @Nullable public static final String fn() { return ":"}
