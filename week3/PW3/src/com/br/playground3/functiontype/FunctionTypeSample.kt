@@ -1,4 +1,4 @@
-package com.br.playground3.fntype
+package com.br.playground3.functiontype
 
 import com.br.playground3.fp.wrapperFunction
 

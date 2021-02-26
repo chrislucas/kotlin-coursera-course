@@ -40,7 +40,7 @@ fun fnNonBoundedRef() {
 }
 
 fun fnNonBoundedRef2() {
-    // val agePredicate: (Person, (Byte, Byte) -> Boolean) -> Boolean = Person::simplestIsOlder
+    // value  agePredicate: (Person, (Byte, Byte) -> Boolean) -> Boolean = Person::simplestIsOlder
     val agePredicate = Person::fixedValueIsOlder
     val isOlder = agePredicate(Person("chris", 23)) { p, q -> p > q }
     println(isOlder)

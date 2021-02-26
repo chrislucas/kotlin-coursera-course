@@ -1,6 +1,5 @@
-package com.br.playground3.fntype
+package com.br.playground3.functiontype
 
-import java.util.concurrent.BlockingDeque
 import java.util.concurrent.LinkedBlockingDeque
 import java.util.concurrent.ThreadPoolExecutor
 import java.util.concurrent.TimeUnit
