@@ -134,8 +134,6 @@ fun <K, V> Map<K, V>.log() {
     println(this)
 }
 
-data class Person(val name: String, val age: Short)
-
 fun main() {
     fnGroupBy(INT_INTERVAL) { if (it % 2 == 0) "Even" else "Odd" }
 
