@@ -47,12 +47,9 @@ fun duplicateNonZero3(list: List<Int>): List<Int>{
 }
 
 /**
- * Por que a keyword return faz em kotlin faz com que a funcao mais externa
+ * Por que a keyword return em kotlin faz com que a funcao mais externa
  * retorne aquele que a chamou ?
- *
  * */
-
-
 fun explainReturnKeyworkBehavior() {
     val list = (1 .. 100).toList()
     // espera-se que um loop for sobre a lista
