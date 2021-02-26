@@ -1,4 +1,4 @@
-package com.br.playground3.samples.cb
+package com.br.playground3.samples.combinatory
 
 
 object CatalanNumbers {

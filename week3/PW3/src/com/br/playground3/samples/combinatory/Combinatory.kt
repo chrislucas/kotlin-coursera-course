@@ -1,4 +1,4 @@
-package com.br.playground3.samples.cb
+package com.br.playground3.samples.combinatory
 
 import java.math.BigDecimal
 import java.math.BigInteger

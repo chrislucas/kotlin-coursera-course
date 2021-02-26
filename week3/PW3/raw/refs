@@ -10,3 +10,9 @@ Kotlin resolve o problema de valores nulos de 2 formas
 
 fun fn(): String = ":" -> @NotNull public static final String fn() { return ":"}
 fun fn(): String? = ":" -> @Nullable public static final String fn() { return ":"}
+
+// fn1 eh uma funcao que pode ser nula, mas nao pode retornar nulo
+val fn1: (() -> Int)? = null
+
+// fn2 eh uma funcao que pode retornar nulo ou um inteiro
+val fn2: () -> Int? = { null }
