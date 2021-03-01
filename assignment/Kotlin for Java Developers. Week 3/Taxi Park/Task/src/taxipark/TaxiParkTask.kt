@@ -1,7 +1,6 @@
 package taxipark
 
 import kotlin.math.abs
-import kotlin.math.floor
 import kotlin.math.roundToInt
 
 /*
@@ -81,19 +80,22 @@ fun TaxiPark.findSmartPassengers(): Set<Passenger> {
 // TODO corrigir esse metodo
 private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
     return taxiPark.run {
-        val smartPassenger = mutableMapOf<Passenger, Double>()
-        var maxValue = 0.0
-        this.trips
-            .filter { trip -> trip.discount ?: 0.0 > 0.0 }
-            .forEach { trip ->
-                val discount = trip.discount ?: 0.0
-                trip.passengers.forEach {
-                    smartPassenger[it] = smartPassenger[it]?.plus(discount) ?: discount
-                    if (maxValue < smartPassenger[it] ?: 0.0)
-                        maxValue = smartPassenger[it] ?: 0.0
+        val mapPassengerDiscount = mutableMapOf<Passenger, Int>()
+
+        trips.flatMap trip@{ trip -> listOf(trip.passengers to trip.discount) }
+            .map { (passengers, pDiscount) ->
+                passengers.forEach {
+                    if (pDiscount == null) {
+                        mapPassengerDiscount[it] = mapPassengerDiscount[it]?.minus(1) ?: -1
+                    } else {
+                        mapPassengerDiscount[it] = mapPassengerDiscount[it]?.plus(1) ?: 1
+                    }
                 }
             }
-        smartPassenger.filter { it.value == maxValue }.keys
+
+        val smarsmartPassenger = mapPassengerDiscount.filter { it.value > 0 }
+
+        smarsmartPassenger.keys
     }
 }
 
@@ -130,7 +132,7 @@ fun TaxiPark.checkParetoPrinciple(): Boolean =
 
 fun TaxiPark.checkV1(): Boolean {
 
-    if(trips.isEmpty())
+    if (trips.isEmpty())
         return false
 
     val contributionPerDriver = mutableMapOf<Driver, Double>()
