@@ -1,6 +1,8 @@
 package taxipark
 
-import org.w3c.dom.ranges.Range
+import kotlin.math.abs
+import kotlin.math.floor
+import kotlin.math.roundToInt
 
 /*
  * Task #1. Find all the drivers who performed no trips.
@@ -76,6 +78,7 @@ fun TaxiPark.findSmartPassengers(): Set<Passenger> {
     return smartPassenger(this)
 }
 
+// TODO corrigir esse metodo
 private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
     return taxiPark.run {
         val smartPassenger = mutableMapOf<Passenger, Double>()
@@ -108,8 +111,8 @@ private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
         val mapRange = mutableMapOf<IntRange, Int>()
         this.trips.forEach { trip ->
             val duration = trip.duration
-            val s = duration - (duration  % 10)
-            val e = duration - (duration  % 10) + 9
+            val s = duration - (duration % 10)
+            val e = duration - (duration % 10) + 9
             val range = IntRange(s, e)
             mapRange[range] = mapRange[range]?.plus(1) ?: 1
         }
@@ -121,6 +124,32 @@ private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
  * Task #6.
  * Check whether 20% of the drivers contribute 80% of the income.
  */
-fun TaxiPark.checkParetoPrinciple(): Boolean {
-    TODO()
+fun TaxiPark.checkParetoPrinciple(): Boolean =
+    this.checkV1()
+
+
+fun TaxiPark.checkV1(): Boolean {
+
+    if(trips.isEmpty())
+        return false
+
+    val contributionPerDriver = mutableMapOf<Driver, Double>()
+
+    this.trips.forEach {
+        contributionPerDriver[it.driver] =
+            contributionPerDriver[it.driver]?.plus(it.cost) ?: it.cost
+    }
+    val incomming80Percent = this.trips.map { trip -> trip.cost }.sum() * .8
+
+    val drivers20Percent = (this.allDrivers.size * .2).roundToInt()
+
+    val s = contributionPerDriver.entries
+        .sortedByDescending { it.value }            // ordenar pelos motoristas que mais contribuiem
+        .slice(0 until drivers20Percent)    // fazer um recorto de 20% dos motoristas que contribuiram com corridas
+        .sumByDouble { it.value }   // efetuar um somatorio
+
+
+    return s >= incomming80Percent  // verificar se os 20% motoristas que mais receberam contribuiem com 80% o mais do somatorio
 }
+
+private fun Double.almostEquals(that: Double, diff: Double) = abs(that - this) <= diff
