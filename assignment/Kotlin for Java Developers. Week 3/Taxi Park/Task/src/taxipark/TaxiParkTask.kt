@@ -118,7 +118,11 @@ private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
             val range = IntRange(s, e)
             mapRange[range] = mapRange[range]?.plus(1) ?: 1
         }
-        mapRange.maxByOrNull { it.value }?.key
+        // o compilador do curso nao esta aceitando essa instrucao
+        // provavelmente por conta da versao do compilador kotlin
+        //mapRange.maxByOrNull { it.value }?.key
+
+        mapRange.maxBy { it.value }?.key
     }
 }
 
