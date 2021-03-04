@@ -7,7 +7,9 @@ import kotlin.math.roundToInt
  * Task #1. Find all the drivers who performed no trips.
  */
 fun TaxiPark.findFakeDrivers(): Set<Driver> =
-    allDrivers.subtract(trips.flatMap { listOf(it.driver) })
+    //allDrivers.subtract(trips.flatMap { listOf(it.driver) })
+    removeFakeDrivers(this)
+//subtractFakeDrivers()
 
 
 /*
@@ -17,16 +19,18 @@ fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
     return if (minTrips <= 0) {
         allPassengers
     } else {
-        groupPassengerFilterByMinTrips(minTrips, trips.flatMap trips@{ trip -> trip.passengers })
+        // findPassengerWhoCompletedAtLeastXTrips(minTrips)
+        // groupPassengerFilterByMinTrips(minTrips, trips.flatMap trips@{ trip -> trip.passengers })
+        functionalGroupPassengerFilterByMinTrips(minTrips)
     }
 }
 
 // V1, foi interessante para construir o raciocinio
 private fun groupPassengerFilterByMinTrips(
     minTrips: Int,
-    passengersWhoHasAtLeatOneTrip: List<Passenger>
+    passengersWhoHasAtLeastOneTrip: List<Passenger>
 ): Set<Passenger> {
-    return passengersWhoHasAtLeatOneTrip.run {
+    return passengersWhoHasAtLeastOneTrip.run {
         val map = mutableMapOf<Passenger, Int>()
         this.forEach {
             map[it] = map[it]?.plus(1) ?: 1
@@ -38,10 +42,12 @@ private fun groupPassengerFilterByMinTrips(
 }
 
 // v2, mas concisa
-private fun functionalGroupPassengerFilterByMinTrips(minTrips: Int, passengers: List<Passenger>) =
-    passengers.groupingBy { passenger -> passenger }
+private fun TaxiPark.functionalGroupPassengerFilterByMinTrips(minTrips: Int) =
+    trips.flatMap trips@{ trip -> trip.passengers }
+        .groupingBy passenger@{ it }
         .eachCount()
-        .filter { entry -> entry.value >= minTrips }.keys
+        .filter { entry -> entry.value >= minTrips }
+        .keys
 
 
 /*
