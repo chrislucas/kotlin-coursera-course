@@ -1,0 +1,76 @@
+// post interessante sobre assignment nao ser uma expressao e nao poder ser usado num contexto de comparacao
+https://discuss.kotlinlang.org/t/assignment-not-allow-in-while-expression/339/2
+
+
+https://kotlinlang.org/spec/statements.html#statements
+
+Statement - Declaracao
+
+Kotlin nao distingue explicitamente  statements, expressions e declaration.
+    - Expressions e Declaratopms can be used in statement positions
+
+    Exemplo de statements (declaracoes) que na espeficicacao da linguagem nao sao expressions nem declarations
+
+    - Assignments (atribuicoes)
+        - "=" directlyAssignableExpression '='
+        - assignmentAndOperator:
+           - '+='
+           - '-='
+           - '*='
+           - '/='
+           - '%='
+       - Ambos os lados direito e esquerdo de uma declaracao de atribuicao devem ser expressions
+
+  Definicao de Assignment pela documentacao as especificacao da linguagem
+  "An assignment is a statement that writes a new value to some program entity, denoted by its left-hand side"
+
+Expression: https://kotlinlang.org/spec/expressions.html#glossary-2
+
+Uma expressaom eh usada como tal. se ela for encontrada numa posicao onde uma declaracao (statement)
+nao eh permitida. Exemplos segundo a doc
+    - Um operando para um operador
+    - Um argumento para uma funcao
+
+Uma expressao eh usada um statement se estiver numa posicao que statements sao permitidas
+    - Exemplo:
+        - fluxo condicional com if-else cujo o bloco condicional retorna um valor para assignemtn
+            - https://kotlinlang.org/docs/control-flow.html#when-expression
+        - idem para o fluxo concional escrito com when
+            - https://kotlinlang.org/docs/control-flow.html#when-expression
+        - try ... catch
+            - Try eh uma expression podem assim retornar um valor
+                - https://kotlinlang.org/docs/control-flow.html#when-expression
+                - Usando para atribuir valor a uma variavel (assignment)
+                - val a: Int? = try { parseInt(input) } catch (e: NumberFormatException) { null }
+
+
+exemplo
+
+    val line: String
+    val bufferedReader = BufferedReader(InputStreamReader(System.in))
+    // o codigo abaixo gera um erro, informando que assignment nao eh permitido nesse local
+    // pq nao eh uma expressao (expression) e somente statements sao permitidos
+    // Assignments are not expressions, and only expressions are allowed in this context
+    while ( (line = bufferedReader.readLine()) != null) {
+
+    }
+    A documentacao da especificacao deixa essa nota
+    "Kotlin assignments are not expressions and cannot be used as such."
+
+Condicional com expressao em kotlin: https://kotlinlang.org/docs/control-flow.html#if-expression
+
+val max = if (a > b) a else b
+
+Podemos usar o if como expressao para retornar um valor conforme o resultado da expressao avaliada
+
+https://kotlinlang.org/spec/expressions.html
+
+--------------------------------------------------------------
+
+Discussoes sobre o fato de assignment nao ser uma expression em kotlin
+https://stackoverflow.com/questions/36879236/how-to-convert-java-assignment-expression-to-kotlin
+
+https://stackoverflow.com/questions/32596261/kotlin-why-cant-i-do-an-assignment-in-a-loop-guard
+O autor da resposta mostra a prevencao de bugs que podem ocorrer ao usar = quando se queria usar
+== em linguagens que a atribuicao eh uma expressao eh pode ser avalidada num condicional :)
+()
