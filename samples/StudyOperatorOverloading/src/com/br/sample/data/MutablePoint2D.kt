@@ -24,6 +24,9 @@ operator fun MutablePoint2D.unaryMinus() = MutablePoint2D(-this.x,  -this.y)
 
 operator fun MutablePoint2D.unaryPlus() = MutablePoint2D(+this.x,  +this.y)
 
+// trocando (flipping) a coordenada
+operator fun MutablePoint2D.not() = Point2D(y, x)
+
 // https://kotlinlang.org/docs/operator-overloading.html#augmented-assignments
 
 /**
