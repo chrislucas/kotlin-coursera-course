@@ -7,9 +7,7 @@ import kotlin.math.roundToInt
  * Task #1. Find all the drivers who performed no trips.
  */
 fun TaxiPark.findFakeDrivers(): Set<Driver> =
-    //allDrivers.subtract(trips.flatMap { listOf(it.driver) })
     removeFakeDrivers(this)
-//subtractFakeDrivers()
 
 
 /*
@@ -21,10 +19,13 @@ fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
     } else {
         // findPassengerWhoCompletedAtLeastXTrips(minTrips)
         // groupPassengerFilterByMinTrips(minTrips, trips.flatMap trips@{ trip -> trip.passengers })
-        functionalGroupPassengerFilterByMinTrips(minTrips)
+        // functionalGroupPassengerFilterByMinTrips(minTrips)
+        // findPassengerWhoCompletedAtLeastXTrips(minTrips)
+        findPassengerWhoCompletedAtLeastMinQuantityOfTrips(minTrips)
     }
 }
 
+// TASK 2
 // V1, foi interessante para construir o raciocinio
 private fun groupPassengerFilterByMinTrips(
     minTrips: Int,
@@ -41,6 +42,7 @@ private fun groupPassengerFilterByMinTrips(
     }.keys
 }
 
+// TASK 2
 // v2, mas concisa
 private fun TaxiPark.functionalGroupPassengerFilterByMinTrips(minTrips: Int) =
     trips.flatMap trips@{ trip -> trip.passengers }
@@ -62,7 +64,7 @@ private fun frequentPassengers(taxiPark: TaxiPark, driver: Driver): Set<Passenge
     return taxiPark.run {
         val gK = { trip: Trip -> trip.driver }
         val gV = { trip: Trip -> trip.passengers }
-        val passagers = trips
+        val passengers = trips
             .filter { trip -> trip.driver == driver }
             .groupBy(gK, gV)    // map <Driver, List<Set<Passanger>> = motorista -> corridas
             // motoristas que fizeram +1 corrida
@@ -71,7 +73,7 @@ private fun frequentPassengers(taxiPark: TaxiPark, driver: Driver): Set<Passenge
             .groupingBy { passager -> passager }    // agrupando por passageiro
             .eachCount()    // contando cada passageiro
             .filter { entry -> entry.value > 1 }
-        passagers.keys
+        passengers.keys
     }
 }
 
@@ -99,9 +101,9 @@ private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
                 }
             }
 
-        val smarsmartPassenger = mapPassengerDiscount.filter { it.value > 0 }
+        val smartPassenger = mapPassengerDiscount.filter { it.value > 0 }
 
-        smarsmartPassenger.keys
+        smartPassenger.keys
     }
 }
 
