@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PW3.iml" filepath="$PROJECT_DIR$/PW3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SampleKoansStudyPartion/SampleKoansStudyPartion.iml" filepath="$PROJECT_DIR$/SampleKoansStudyPartion/SampleKoansStudyPartion.iml" />
     </modules>
   </component>
 </project>

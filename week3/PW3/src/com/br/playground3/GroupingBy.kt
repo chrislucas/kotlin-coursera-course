@@ -6,6 +6,15 @@ package com.br.playground3
  * */
 
 
-fun main() {
+fun String.frequency(): Map<String, Int> = this.groupingBy {
+    val s = it.toString()
+    if (s == " ") {
+        "ESPACO"
+    } else {
+        s
+    }
+}.eachCount()
 
+fun main() {
+    println("chris luccas".frequency())
 }
