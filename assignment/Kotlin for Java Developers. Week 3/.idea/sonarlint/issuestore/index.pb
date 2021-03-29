@@ -21,3 +21,5 @@ h
 8Taxi Park/Task/test/taxipark/TestTask4SmartPassengers.kt,1/5/150f4dca65a37078b92c98becb440f1b2a350812
 [
 +Taxi Park/Task/src/taxipark/TaxiParkTask.kt,1/7/175f167efc806f96ca767b3fa295ee78346427d6
+Z
+*Taxi Park/Task/src/taxipark/TaxiParkExt.kt,5/f/5fdc43d094ef00cec489acae68e8ec8c362de5e2
