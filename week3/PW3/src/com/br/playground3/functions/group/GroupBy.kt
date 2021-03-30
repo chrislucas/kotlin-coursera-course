@@ -1,5 +1,8 @@
 package com.br.playground3.functions.group
 
+import com.br.playground3.fp.log
+import com.br.playground3.toTypedArray
+
 
 /**
  * https://kotlinlang.org/docs/collection-grouping.html
@@ -19,7 +22,7 @@ package com.br.playground3.functions.group
  * */
 
 /**
- * Agrupando
+ * Agrupando strings num mapa cuja chave eh a primeira letra da string
  * */
 fun groupByFirstLetter() {
     val map: Map<Char, List<String>> =
@@ -43,7 +46,10 @@ fun groupByFirstLetterAndTransformElements() {
         }
 
     val map: Map<Char, List<Pair<String, Int>>> =
-        listOf("james", "stweart", "philip", "arnold", "armando", "a").groupBy(::keySelector, ::transformValueOfIterator)
+        listOf("james", "stweart", "philip", "arnold", "armando", "a").groupBy(
+            ::keySelector,
+            ::transformValueOfIterator
+        )
 
     println(map)
 }
@@ -66,16 +72,15 @@ fun <K, V, R> Map<K, V>.transformValue(fn: (Map<K, V>, V) -> R): Map<K, R> {
 }
 
 fun String.table(): Map<Char, Int> = this.groupBy { it }.transformValue { chars -> chars.size }
-/*
-fun <T> Iterable<T>.histogram(): Map<T, Int> {
-    run {
-        this.groupBy { it }
-    }
+
+fun groupingNumbersUsingModularFunction() {
+    (1 .. 100).toTypedArray()
+        .groupBy { it % 25 }
+        .log()
 }
-*/
 
 //
 
 fun main() {
-    groupByFirstLetterAndTransformElements()
+    groupingNumbersUsingModularFunction()
 }
