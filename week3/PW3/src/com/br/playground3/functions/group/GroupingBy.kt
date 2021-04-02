@@ -1,6 +1,6 @@
 package com.br.playground3.functions.group
 
-import com.br.playground3.fp.log
+import com.br.playground3.exts.log
 import com.br.playground3.toTypedArray
 
 /**
@@ -15,6 +15,12 @@ import com.br.playground3.toTypedArray
  *     Grouping permite aplicar uma operacoa em todos os grupos dum "modo tardio (melhor
  *     expressao para definir lazy nesse contexto pois os grupos sao construidos num momento preciso
  *     logo antes de aplicar a operacao de transformacao)"
+ *
+ * Tipos que possuem uma ext function groupingBy:
+ * - [Iterable]
+ * - [Sequence]
+ * - [Array]
+ * - [CharSequence]
  *
  *
  * https://kotlinlang.org/docs/collection-grouping.html
@@ -31,7 +37,7 @@ import com.br.playground3.toTypedArray
  * https://stackoverflow.com/questions/47200440/kotlin-how-to-find-number-of-repeated-values-in-a-list
  * */
 
-fun String.frequency(): Map<String, Int> =
+private fun String.frequency(): Map<String, Int> =
     this.groupingBy { char ->
         char.toString().let {
             if (it == " ") {
@@ -43,7 +49,7 @@ fun String.frequency(): Map<String, Int> =
     }.eachCount()
 
 
-fun groupingCollectionNumberByModularFunction() {
+private fun groupingCollectionNumberByModularFunction() {
     (1..100).toTypedArray()
         .grouping { it % 25 }   // a chave para agrupar sera baseada na operacao modulo % 25
         .mapping grouping@{
