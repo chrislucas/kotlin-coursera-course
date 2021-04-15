@@ -14,7 +14,11 @@ fun mapWithLocalFunction(list: List<Int>, fn: (Int) -> Boolean): List<Int> {
 
     // so para mostrar que eh possivel usar os returns dentro das clausulas condicionais
     fun anotherTransformationFun(e: Int): List<Int> {
-        if (fn(e)) { return listOf() } else { return listOf(e, e) }
+        return if (fn(e)) {
+            listOf()
+        } else {
+            listOf(e, e)
+        }
     }
 
     return list.flatMap(::transform)

@@ -12,7 +12,6 @@
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="util" />
-          <option name="jvmTarget" value="1.8" />
           <option name="friendPaths">
             <array>
               <option value="$MODULE_DIR$/../../../util/build/classes/java/main" />
@@ -47,7 +46,7 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../util/src/test" />
     <content url="file://$MODULE_DIR$/../../../util/test" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="13" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Kotlin_for_Java_Developers._Week_3.util.main" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.10" level="project" />

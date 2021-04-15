@@ -1,5 +1,7 @@
 package com.br.playground3.fp
 
+import com.br.playground3.exts.log
+
 val INT_INTERVAL = (0..100).toList()
 
 fun fnFilter() {
@@ -128,10 +130,6 @@ fun <T, R> fnFlatMap(collection: Collection<T>, transform: (T) -> Iterable<R>) {
 fun <T, R> fnFlatMapTo(collection: Collection<T>, transform: (T) -> Iterable<R>) {
     val result = collection.flatMapTo(mutableListOf(), transform)
     println(result)
-}
-
-fun <K, V> Map<K, V>.log() {
-    println(this)
 }
 
 fun main() {

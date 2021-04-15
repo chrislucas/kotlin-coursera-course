@@ -1,4 +1,6 @@
-package com.br.playground3
+package com.br.playground3.functions.partition
+
+import com.br.playground3.toTypedArray
 
 /**
  * Exemplos baseados nas seguintes referencias

@@ -21,7 +21,8 @@ fun TaxiPark.findFaithfulPassengers(minTrips: Int): Set<Passenger> {
         // groupPassengerFilterByMinTrips(minTrips, trips.flatMap trips@{ trip -> trip.passengers })
         // functionalGroupPassengerFilterByMinTrips(minTrips)
         // findPassengerWhoCompletedAtLeastXTrips(minTrips)
-        findPassengerWhoCompletedAtLeastMinQuantityOfTrips(minTrips)
+        //findPassengerWhoCompletedAtLeastMinQuantityOfTrips(minTrips)
+        filterPassengerWhoCompletedAtLeastXTrips(minTrips)
     }
 }
 
@@ -56,7 +57,10 @@ private fun TaxiPark.functionalGroupPassengerFilterByMinTrips(minTrips: Int) =
  * Task #3. Find all the passengers, who were taken by a given driver more than once.
  */
 fun TaxiPark.findFrequentPassengers(driver: Driver): Set<Passenger> {
-    return frequentPassengers(this, driver)
+    //return findFrequentPassengersV1(driver)
+    //return findFrequentPassengersV1(driver)
+    // return findFrequentPassengersV3(driver)
+    return findFrequentPassengersV2(driver)
 }
 
 // separando numa funcao para depois comparar com outras possiveis solucoes mais simples
