@@ -86,10 +86,15 @@ private fun frequentPassengers(taxiPark: TaxiPark, driver: Driver): Set<Passenge
  * Task #4. Find the passengers who had a discount for majority of their trips.
  */
 fun TaxiPark.findSmartPassengers(): Set<Passenger> {
-    return smartPassenger(this)
+    //return smartPassenger(this)
+    //return findPassengersWhoHadMostQuantityOfDiscount()
+    //return findThePassengersWhoHadMostQuantityOfDiscount()
+    //return findThePassengersWithMoreDiscountThanNoDiscount()
+    return findThePassengersWithMoreDiscountThanNoDiscountV2()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV3()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV4()
 }
 
-// TODO corrigir esse metodo
 private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
     return taxiPark.run {
         val mapPassengerDiscount = mutableMapOf<Passenger, Int>()
