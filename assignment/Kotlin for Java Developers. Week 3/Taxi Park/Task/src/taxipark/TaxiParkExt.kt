@@ -256,6 +256,60 @@ fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV2(): Set<Passenger>
         .toSet()
 }
 
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV6(): Set<Passenger> {
+    val map: Map<Passenger, List<Trip>> =
+        allPassengers.associateBy({ passenger -> passenger }) { passenger ->
+            trips.filter { trip -> passenger in trip.passengers }
+        }
+    return map.filter { (_, trips) ->
+        val (withDiscount, withoutDiscount) = trips.partition { trip -> trip.discount != null }
+        withDiscount.size > withoutDiscount.size
+    }.map { (passenger, _) -> passenger }
+        .toSet()
+}
+
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV7(): Set<Passenger> {
+    val map: Map<Passenger, List<Trip>> =
+        allPassengers.associateBy({ passenger -> passenger }) { passenger ->
+            trips.filter { trip -> passenger in trip.passengers }
+        }
+    return map.filterValues { trips ->
+        val (withDiscount, withoutDiscount) = trips.partition { trip -> trip.discount != null }
+        withDiscount.size > withoutDiscount.size
+    }.keys
+}
+
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountConcisely(): Set<Passenger> {
+
+    val qPassengersWhoHaveTraveledWithDiscount: (Passenger) -> Int = { p ->
+        trips.count { trip -> p in trip.passengers && trip.discount != null }
+    }
+
+    val qPassengersWhoHaveTraveledWithoutDiscount: (Passenger) -> Int = { p ->
+        trips.count { trip -> p in trip.passengers && trip.discount == null }
+    }
+
+    return allPassengers.filter { passenger ->
+        qPassengersWhoHaveTraveledWithDiscount(passenger) >
+                qPassengersWhoHaveTraveledWithoutDiscount(passenger)
+    }.toSet()
+}
+
+/**
+ * A mesma solucao usando associateWith, economizando uma lambda
+ * */
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV5(): Set<Passenger> {
+    // como o conjunto acima
+    val map = allPassengers.associateWith { passenger ->
+        trips.filter { trip -> passenger in trip.passengers }
+    }
+
+    return map.filter { (_, trips) ->
+        val (with, without) = trips.partition { trip -> trip.discount != null }
+        with.size > without.size
+    }.map { (passenger, _) -> passenger }.toSet()
+}
+
 /**
  * Uma ideia baseada na solucao proposta pela instrutora
  * O retorno da funcao groupBy me causa encomodo uma vez que temos um mapa Map<K, List<List<V>>> como retorno
@@ -294,3 +348,23 @@ fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV4(): Set<Passenger>
 }
 
 // Task 5
+
+fun TaxiPark.theMostFrequentTripDurationPeriod(): IntRange? {
+    return this.run {
+        val mapDurationTrips = trips.groupBy { trip ->
+            trip.run {
+                /**
+                 * duration - (duration % 10)
+                 * se a duracao foi de 29 (coloque aqui Unidade de medida de tempo que quiser)
+                 * o intervalor eh entre 20 .. 29
+                 * se foi 25 -> 20  .. 29
+                 * entao para alcancar esse intervalor, subtraimos a parte unitario do valor
+                 * total tornando o inicio do invervalo, pegamos esse mesmo valor e adicionamos
+                 * 9. dai temos os intervalos 0 ..  9 , 10 .. 19 e assim por diante
+                 * */
+                duration - (duration % 10) .. duration - (duration % 10) + 9
+            }
+        }
+        mapDurationTrips.maxByOrNull { (_, trips) -> trips.size }?.key
+    }
+}

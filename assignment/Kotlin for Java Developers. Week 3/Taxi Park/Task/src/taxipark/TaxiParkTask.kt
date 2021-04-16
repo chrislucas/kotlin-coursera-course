@@ -90,9 +90,13 @@ fun TaxiPark.findSmartPassengers(): Set<Passenger> {
     //return findPassengersWhoHadMostQuantityOfDiscount()
     //return findThePassengersWhoHadMostQuantityOfDiscount()
     //return findThePassengersWithMoreDiscountThanNoDiscount()
-    return findThePassengersWithMoreDiscountThanNoDiscountV2()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV2()
     //return findThePassengersWithMoreDiscountThanNoDiscountV3()
     //return findThePassengersWithMoreDiscountThanNoDiscountV4()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV5()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV6()
+    //return findThePassengersWithMoreDiscountThanNoDiscountV7()
+    return findThePassengersWithMoreDiscountThanNoDiscountConcisely()
 }
 
 private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
@@ -122,7 +126,8 @@ private fun smartPassenger(taxiPark: TaxiPark): Set<Passenger> {
  * Return any period if many are the most frequent, return `null` if there're no trips.
  */
 fun TaxiPark.findTheMostFrequentTripDurationPeriod(): IntRange? {
-    return theMostFrequentTripDurationPeriod(this)
+    //return theMostFrequentTripDurationPeriod(this)
+    return theMostFrequentTripDurationPeriod()
 }
 
 private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
@@ -139,7 +144,7 @@ private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
         // provavelmente por conta da versao do compilador kotlin
         //mapRange.maxByOrNull { it.value }?.key
 
-        mapRange.maxBy { it.value }?.key
+        mapRange.maxByOrNull { it.value }?.key
     }
 }
 

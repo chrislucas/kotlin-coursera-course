@@ -1396,7 +1396,7 @@ files:
     initialized_from_dependency: false
     selected: true
     status: Unchecked
-  - offset: 3928
+  - offset: 4195
     length: 0
     placeholder_text: TODO()
     initial_state:
@@ -1405,7 +1405,7 @@ files:
     initialized_from_dependency: false
     selected: true
     status: Unchecked
-  - offset: 4205
+  - offset: 4472
     length: 39
     placeholder_text: TODO()
     initial_state:
@@ -1414,8 +1414,8 @@ files:
     initialized_from_dependency: false
     selected: true
     status: Unchecked
-  - offset: 5056
-    length: 998
+  - offset: 5372
+    length: 1004
     placeholder_text: TODO()
     initial_state:
       length: 6
