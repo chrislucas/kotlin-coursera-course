@@ -120,17 +120,17 @@ fun TaxiPark.frequentPassengers(driver: Driver): Set<Passenger> {
 
 // Task 3 solution 1 by Svetlana Isakova
 fun TaxiPark.findFrequentPassengersV1(driver: Driver): Set<Passenger> =
-   run {
-       trips.filter { trip -> trip.driver == driver } // filtra as corridas por um motorista
-           // a partir da lista de viagens recupera-se todos os passageiros
-           // lembrando que essa lista pode ter passageiros repitidos
-           .flatMap(Trip::passengers)
-               // agrupe-os num mapa <Passageiro, List<Passageiro>>
-           .groupBy { passenger -> passenger }
-           .filter { (_, passengers) -> passengers.size > 1}
-           //.filterValues { passengers -> passengers.size > 1 }
-           .keys
-   }
+    run {
+        trips.filter { trip -> trip.driver == driver } // filtra as corridas por um motorista
+            // a partir da lista de viagens recupera-se todos os passageiros
+            // lembrando que essa lista pode ter passageiros repitidos
+            .flatMap(Trip::passengers)
+            // agrupe-os num mapa <Passageiro, List<Passageiro>>
+            .groupBy { passenger -> passenger }
+            .filter { (_, passengers) -> passengers.size > 1 }
+            //.filterValues { passengers -> passengers.size > 1 }
+            .keys
+    }
 
 // Task 3 solution 3: uma mescla da minha primeira solucao com a primeira sugerida pela instrutora
 // Task 3 solution 1 by Svetlana Isakova
@@ -142,9 +142,9 @@ fun TaxiPark.findFrequentPassengersV3(driver: Driver): Set<Passenger> =
             .flatMap(Trip::passengers)
             // agrupe-os passageiros
             .groupingBy { passenger -> passenger }
-                // contem quantos passageiros iguais existem
+            // contem quantos passageiros iguais existem
             .eachCount()
-                // filtre por aqueles que aparecem +1x e crie um mapa <Passenger, Int>
+            // filtre por aqueles que aparecem +1x e crie um mapa <Passenger, Int>
             .filterValues { it > 1 }
             .keys
     }
@@ -153,15 +153,13 @@ fun TaxiPark.findFrequentPassengersV3(driver: Driver): Set<Passenger> =
 fun TaxiPark.findFrequentPassengersV2(driver: Driver): Set<Passenger> =
     run {
         // filtrar os passageiros pelo seguinte criterio
-        allPassengers.filter {
-            passenger ->
+        allPassengers.filter { passenger ->
             // aqui filtramos viagens com um determinado motorista e
             // dessas viagens verificamos se o passageiro que vem da funcao filter
             // estava nessa viagem. ao final o filtro de passageiros verifica se um determinado
             // passageiro viajou mais de Nx com o motorista escolhido para decidir se ele fica na lista
             // final ou nao
-            trips.count {
-                trip ->
+            trips.count { trip ->
                 // aqueles que fizeram mais de uma viagem com um determinado motorista
                 trip.driver == driver && passenger in trip.passengers
             } > 1 // mais de uma viagem
@@ -169,6 +167,130 @@ fun TaxiPark.findFrequentPassengersV2(driver: Driver): Set<Passenger> =
     }
 
 // Task 4
+// Solucao proposta pela instrutora no curso Svetlana Isakova,
+fun TaxiPark.findPassengersWhoHadMostQuantityOfDiscount(): Set<Passenger> {
 
+    /**
+     * Particionando as viagens em 2 lista, uma cujos passageiros tiveram desconto
+     * e na outra nao
+     * */
+    val (tripWhosePassengerHaveDiscount, tripWhosePassengerHaveNotDiscount) =
+        trips.partition { it.discount is Double }
+
+    fun checkIfPassengerHasMoreTripsWithDiscount(passenger: Passenger): Boolean {
+        return tripWhosePassengerHaveDiscount.count { trip -> trip.passengers.contains(passenger) } >
+                tripWhosePassengerHaveNotDiscount.count { trip -> trip.passengers.contains(passenger) }
+    }
+
+    return allPassengers.filter(::checkIfPassengerHasMoreTripsWithDiscount).toSet()
+}
+
+/**
+ * Mesma coisa escrita de outra forma muitoooooo similar. Nao quero os creditos, so estou explorando
+ * possibildades :)
+ * */
+fun TaxiPark.findThePassengersWhoHadMoreDiscountThanNoDiscount(): Set<Passenger> {
+    return trips.partition { it.discount == null }  // prefiro essa comparacao ao inves it.discount is Double, parece mais clara
+        .run {
+            val (isNull, isNotNull) = this
+            allPassengers.filter { passenger ->
+                isNotNull.count { tripWithDiscount -> passenger in tripWithDiscount.passengers } >
+                        isNull.count { tripWithoutDiscount -> passenger in tripWithoutDiscount.passengers }
+            }.toSet()
+        }
+}
+
+/**
+ * Outra versao sugerida pela instrutora porem com algumas modificacoes para facilitar a leitura
+ * como a criacao de lambdas definidas em variaveis pora deixar o codigo mais legivel
+ * */
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscount(): Set<Passenger> {
+
+    // key select
+    val selectPassengerForKeyMap: (Passenger) -> Passenger = { it } // passenger -> passenger pra ficar mais claro
+
+    // value transformation
+    val relatePassengerToTrip: (Passenger) -> List<Trip> =
+        { passenger -> trips.filter { trip -> passenger in trip.passengers } }
+
+    // : Set<Map.Entry<Passenger, List<List<Trip>>>>
+    val passengerAndTrips =
+        allPassengers.groupBy(selectPassengerForKeyMap, relatePassengerToTrip).entries
+
+    return passengerAndTrips.filter { entry ->
+
+        /**
+         * o metodo groupBy retorna um Map<K, List<V>>
+         *     No caso temos um Map<Passenger, List<List<Trip>>> entao temos que
+         *     desencapsular a lista de viagens (trips) da primeira lista
+         * */
+
+        val listOfTripsPerPassenger = entry.value.first()
+        val (withDiscount, withoutDiscount) = listOfTripsPerPassenger.partition { trip -> trip.discount != null }
+        withDiscount.size > withoutDiscount.size
+    }
+        .map { it.key }
+        .toSet()
+}
+
+/**
+ * Melhorias na versao de findThePassengersWithMoreDiscountThanNoDiscount
+ *
+ * o uso do groupBu na solucao acima gera uma estrutura de mapa na seguinte forma
+ *  Map<K, List<List<V>> onde a lista de lista so tem uma lista causando um desperdicio
+ *  fazendo com que tenhamos que recupera a lista atravs do metodo FIRST = list[0]
+ *
+ *  Para evitar isso vamos usar a funcao associateBt
+ * */
+
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV2(): Set<Passenger> {
+    val set: Set<Map.Entry<Passenger, List<Trip>>> =
+        allPassengers.associateBy({ passenger -> passenger }) { passenger ->
+            trips.filter { trip -> passenger in trip.passengers }
+        }.entries
+
+    return set.filter { (_, trips) ->
+        val (withDiscount, withoutDiscount) = trips.partition { trip -> trip.discount != null }
+        withDiscount.size > withoutDiscount.size
+    }.map { (passenger, _) -> passenger }
+        .toSet()
+}
+
+/**
+ * Uma ideia baseada na solucao proposta pela instrutora
+ * O retorno da funcao groupBy me causa encomodo uma vez que temos um mapa Map<K, List<List<V>>> como retorno
+ * e precisamos usar a funcao first() para recuperar o a lista de viagens de dentro da lista que o metodo groupBy ja
+ * preve como valor do mapa. Para melhor entendimento leia o codigo fonte da funcao groupBy
+ * */
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV3(): Set<Passenger> {
+    // Grouping<Passenger, List<Trip>>
+    return allPassengers.groupingBy { passenger ->
+        trips.filter { trip -> passenger in trip.passengers }
+    }.run {
+        val passengers = mutableSetOf<Passenger>()
+        this.sourceIterator().forEach { passenger ->
+            val (withDiscount, withoutDiscount) = this.keyOf(passenger).partition { trip -> trip.discount != null }
+            if (withDiscount.size > withoutDiscount.size)
+                passengers.add(passenger)
+        }
+        passengers
+    }
+}
+
+private fun <K, V> Grouping<K, V>.mapping(): Map<K, V> =
+    mutableMapOf<K, V>().apply {
+        sourceIterator().forEach { e -> this[e] = keyOf(e) }
+    }
+
+fun TaxiPark.findThePassengersWithMoreDiscountThanNoDiscountV4(): Set<Passenger> {
+    return allPassengers.groupingBy { passenger ->
+        trips.filter { trip -> passenger in trip.passengers }
+    }.mapping()
+        .filter { (_, trips) ->
+            val (withDiscount, withoutDiscount) = trips.partition { trip -> trip.discount != null }
+            withDiscount.size > withoutDiscount.size
+        }.keys
+
+}
 
 // Task 5
