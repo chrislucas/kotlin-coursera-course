@@ -1,6 +1,8 @@
-package com.br.playground3.functions.group
+package com.br.playground3.functions.group.groupingby.integers
 
 import com.br.playground3.exts.log
+import com.br.playground3.functions.group.grouping
+import com.br.playground3.functions.group.mapping
 import com.br.playground3.toTypedArray
 
 /**

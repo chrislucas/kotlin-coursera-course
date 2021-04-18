@@ -1,4 +1,4 @@
-package com.br.playground3.functions.group.functions
+package com.br.playground3.functions.group.aggregating
 
 import com.br.playground3.exts.log
 import com.br.playground3.functions.group.grouping
