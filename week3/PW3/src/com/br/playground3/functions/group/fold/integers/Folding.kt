@@ -1,8 +1,8 @@
 package com.br.playground3.functions.group.fold.integers
 
 import com.br.playground3.exts.log
-import com.br.playground3.functions.group.grouping
 import com.br.playground3.exts.toTypedArray
+import com.br.playground3.functions.group.grouping
 
 
 /**
@@ -11,16 +11,16 @@ import com.br.playground3.exts.toTypedArray
  * https://kotlinlang.org/docs/collection-aggregate.html#fold-and-reduce
  * */
 
-private fun groupingNumberByModuloX1(m: Int) {
+val INTERVAL = (0..100)
 
-    val interval = (0..100)
+private fun groupingNumberByModuloX1(m: Int) {
 
     /**
      * Agrupar os valores no interval (val interval) [s, e] em grupos
      * cuja a chave e o resto da divisa por m
      * */
-    val group: Grouping<Int, Int> = interval.toTypedArray()
-        .grouping int@{ int -> int % m }
+    val group: Grouping<Int, Int> = INTERVAL
+        .groupingBy int@{ int -> int % m }
 
     /**
      * Agrupa os elementos A partir de uma instancia de Grouping pela chave, a qual eh fornecida pela funcao
@@ -48,12 +48,9 @@ private fun groupingNumberByModuloX1(m: Int) {
     }
 }
 
-
 private fun groupingNumberByModuloX2(m: Int) {
 
-    val interval = (0..100)
-
-    val group: Grouping<Int, Int> = interval.toTypedArray()
+    val group: Grouping<Int, Int> = INTERVAL.toTypedArray()
         .grouping int@{ int -> int % m }
 
     val fromKeyToValue: (Int, Int) -> (Pair<Int, Pair<Int, MutableList<Int>>>) =
@@ -73,13 +70,11 @@ private fun groupingNumberByModuloX2(m: Int) {
 }
 
 private fun groupingNumberByModuloX3(m: Int) {
-    val interval = (0..100)
-
     /**
      * Agrupar os valores no interval (val interval) [s, e] em grupos
      * cuja a chave e o resto da divisa por m
      * */
-    val group: Grouping<Int, Int> = interval.toTypedArray()
+    val group: Grouping<Int, Int> = INTERVAL.toTypedArray()
         .grouping int@{ int -> int % m }
 
     val map = group.fold(initialValue = mutableListOf()) { acc: MutableList<Int>, e: Int ->
@@ -92,8 +87,8 @@ private fun groupingNumberByModuloX3(m: Int) {
         forEach { (k, v) ->
             val groupValues = StringBuilder()
             groupValues.append("[")
-            v.forEachIndexed { v, e ->
-                val data = if (v > 0) {
+            v.forEachIndexed { index, e ->
+                val data = if (index > 0) {
                     ", $e"
                 } else {
                     e
@@ -101,11 +96,21 @@ private fun groupingNumberByModuloX3(m: Int) {
                 groupValues.append(data)
             }
             groupValues.append("]")
-
             message.append("$k:$groupValues")
         }
         println(message)
     }
+}
+
+/**
+ * Testando a funcao fold cuja assinatura recebe um objeto como
+ * initialValue
+ * */
+private fun groupingNumberByModuloX4(m: Int) {
+    val info = INTERVAL.groupingBy { it % m }.fold(listOf<Int>()) { acc, e ->
+        acc.apply { acc + e }
+    }
+    info.log()
 }
 
 
@@ -114,6 +119,7 @@ fun main() {
         groupingNumberByModuloX1(i)
         groupingNumberByModuloX2(i)
         groupingNumberByModuloX3(i)
+        groupingNumberByModuloX4(i)
     }
 
 }

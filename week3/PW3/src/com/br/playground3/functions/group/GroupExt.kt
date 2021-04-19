@@ -15,8 +15,14 @@ package com.br.playground3.functions.group
 fun <V> Iterable<V>.histogram(fn: (List<V>) -> Int): Map<V, Int> =
     this.groupBy(keySelector = { it }).transformValue(fn)
 
-fun <T, K> Iterable<T>.frequency(keySelector: (T) -> K) =
+fun <T, K> Iterable<T>.classify(keySelector: (T) -> K) =
     this.groupingBy(keySelector)
+
+fun <V, K, Acumulator> Iterable<V>.frequecy(
+    classifying: (V) -> K,
+    builder: (key: K, acc: Acumulator?, e: V, first: Boolean) -> Acumulator
+): Map<K, Acumulator> = groupingBy(classifying).aggregate(builder)
+
 
 fun <T, K> Array<T>.grouping(keySelector: (T) -> K) =
     this.groupingBy(keySelector)

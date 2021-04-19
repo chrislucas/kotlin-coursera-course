@@ -162,11 +162,21 @@ private fun anotherWayUsingFold(range: IntRange, mod: Int) {
      * */
     val map = range.groupingBy { it % mod }.fold(mutableListOf(), operation)
     map.log()
+
+    /**
+     * Eis uma forma de obter listas diferentes para cada chave, usando uma
+     * List que eh imutavel e a operator lambda cria uma lista nova atraves do
+     * operador plus, que adicionara o element "e" a nova lista que sera associada
+     * a chave do mapa que esta sendo contruindo pela funcao aggregatorTo (veja o codigo
+     * fonte dessa funcao para entender como fold e aggregator funcionam)
+     * */
+    val anotherMap = range.groupingBy {  it % mod }.fold(listOf<Int>()) { acc, e -> acc + e }
+    anotherMap.log()
 }
 
 fun main() {
     //groupingRangeOfIntegerUsingModularFunction(1..1000, 25)
     //groupingRangeOfIntegerUsingModularFunctionAndAggregatingGroups(1..1000, 25)
     //groupingRangeOfIntegerUsingModularFunctionAndFolding(1..100, 25)
-    anotherWayUsingFold(1..100, 25)
+    anotherWayUsingFold(1..10000, 25)
 }
