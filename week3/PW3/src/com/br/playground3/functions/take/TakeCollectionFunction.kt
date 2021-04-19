@@ -1,5 +1,7 @@
 package com.br.playground3
 
+import com.br.playground3.exts.toTypedArray
+
 // take
 // https://kotlinlang.org/docs/scope-functions.html#takeif-and-takeunless
 

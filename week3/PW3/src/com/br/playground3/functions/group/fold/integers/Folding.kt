@@ -2,7 +2,7 @@ package com.br.playground3.functions.group.fold.integers
 
 import com.br.playground3.exts.log
 import com.br.playground3.functions.group.grouping
-import com.br.playground3.toTypedArray
+import com.br.playground3.exts.toTypedArray
 
 
 /**

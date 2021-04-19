@@ -16,22 +16,16 @@ import kotlin.io.path.ExperimentalPathApi
  * */
 
 private fun groupingWordsByFirstLetter(words: List<String>) {
-
     val transform = { key: Char, _: String ->
         Pair(key, mutableListOf<String>())
     }
-
-    val map = words.groupingBy { word ->
-        word.first()
-    }
-
-    val m = map.fold(transform) { _, acc: Pair<Char, MutableList<String>>, currentValue ->
+    val group = words.groupingBy { word -> word.first() }
+    val map = group.fold(transform) { _, acc: Pair<Char, MutableList<String>>, currentValue ->
         acc.apply {
             this.second.add(currentValue)
         }
     }
-
-    m.log()
+    map.log()
 }
 
 /**

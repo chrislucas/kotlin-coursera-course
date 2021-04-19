@@ -1,6 +1,6 @@
 package com.br.playground3.lambda
 
-import com.br.playground3.log
+import com.br.playground3.exts.log
 
 
 fun mapWithLocalFunction(list: List<Int>, fn: (Int) -> Boolean): List<Int> {

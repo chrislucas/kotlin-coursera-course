@@ -104,6 +104,8 @@ private fun groupingRangeOfIntegerUsingModularFunctionAndAggregatingGroups(range
  *         agregacao de operacoes
  *     2) uma segunda implementacao tem a seguinte assinatura
  *          Clazz<T>.fold(initialValue: R, op(acc: R, element: T) ->)
+ *
+ *
  * */
 private fun groupingRangeOfIntegerUsingModularFunctionAndFolding(range: IntRange, mod: Int) {
 
@@ -112,31 +114,59 @@ private fun groupingRangeOfIntegerUsingModularFunctionAndFolding(range: IntRange
      * fun setInitialValueOfOperation(_: Int, _: Int): MutableList<Int> = mutableListOf()
      * ou
      * */
-    val setInitialValueOfOperation : (Int, Int) -> MutableList<Int> = { _, _ -> mutableListOf() }
+    val setInitialValueOfOperation: (Int, Int) -> MutableList<Int> = { _, _ -> mutableListOf() }
 
-    val map = range.groupingBy { it % mod }
-        .fold(setInitialValueOfOperation) { _, acc: MutableList<Int>, v: Int ->
-            acc.add(v)
-            acc
-        }
+    val operation: (Int, MutableList<Int>, Int) -> MutableList<Int> = { _, acc, element ->
+        acc.add(element)
+        acc
+    }
+    /**
+     * Assinatura da funcao fold usada abaixo
+     *
+            Grouping<T, K>.fold(initialValueSelector: (key: K, element: T) -> R,
+                operation: (key: K, accumulator: R, element: T) -> R)
+                : Map<K, R>
+
+            initialValueSelector: (key: K, element: T) -> R
+            funcao lambda que retorna um Tipo que sera utilizado como acumulador
+            o interessante aqui eh que como eh uma funcao lambda, sempre que
+            ela for chamada um objeto novo será criado. isso eh um comportamento importante
+            dependendo do que se quer fazer como por exemplo agrupar numeros num mapa
+            cuja chave Y eh um valor dado por uma funcao F(x): Y e o valor eh uma lista de numeros
+            que quando passados para funca F retorna Y sempre
+
+            Segundo a documentacao:
+            "initialValueSelector a function that provides an initial value of accumulator for each group."
+     * */
+    val map = range.groupingBy { it % mod }.fold(setInitialValueOfOperation, operation)
     map.log()
 }
 
 private fun anotherWayUsingFold(range: IntRange, mod: Int) {
-    val map = range.groupingBy {
-        it % mod
-    }.fold(mutableListOf()) {
-            acc: MutableList<Int>, v ->
-        acc.add(v)
+
+    val operation: (MutableList<Int>, Int) -> MutableList<Int> = { acc, element ->
+        acc.add(element)
         acc
     }
+    /**
+        Grouping<T, K>.fold(
+                initialValue: R,
+                operation: (accumulator: R, element: T) -> R
+            )
+         O interessante dessa assinatura eh o valor initialValue. Diferente a funcao
+         fold que recebe como argumento uma funcao lambda para definir o valor inicial do acumulador
+         essa funcao espera um objeto do tipo R. Esse objeto sera sempre utilizado como acumulador
+         assim o resultado final eh um mapa Map<K, V> onde todas as chaves compartilham o mesmo acumulador
+         Dependendo da estrutura de dados que queremos contruir usar essa funcao nao eh a indicada.
+         Segundo a doc "An initial value of accumulator is the same initialValue for each group"
+     * */
+    val map = range.groupingBy { it % mod }.fold(mutableListOf(), operation)
     map.log()
 }
 
-
 fun main() {
     //groupingRangeOfIntegerUsingModularFunction(1..1000, 25)
-    groupingRangeOfIntegerUsingModularFunctionAndAggregatingGroups(1..1000, 25)
-    groupingRangeOfIntegerUsingModularFunctionAndFolding(1..1000, 25)
-    anotherWayUsingFold(1..100000, 25)
+    //groupingRangeOfIntegerUsingModularFunctionAndAggregatingGroups(1..1000, 25)
+    //groupingRangeOfIntegerUsingModularFunctionAndFolding(1..100, 25)
+    anotherWayUsingFold(1..100, 25)
 }
