@@ -1415,7 +1415,7 @@ files:
     selected: true
     status: Unchecked
   - offset: 5372
-    length: 1004
+    length: 1073
     placeholder_text: TODO()
     initial_state:
       length: 6
@@ -1466,6 +1466,9 @@ files:
         TODO()
     }
   learner_created: false
+- name: src/taxipark/TaxiPareto.kt
+  visible: true
+  learner_created: true
 feedback_link: https://www.coursera.org/learn/kotlin-for-java-developers/programming/xTPZT/taxi-park/discussions
 status: Unchecked
 feedback:

@@ -153,10 +153,11 @@ private fun theMostFrequentTripDurationPeriod(taxiPark: TaxiPark): IntRange? {
  * Check whether 20% of the drivers contribute 80% of the income.
  */
 fun TaxiPark.checkParetoPrinciple(): Boolean =
-    this.checkV1()
+    //checkParetoPrincipleIncomeTrips()
+    checkParetoPrincipleV1()
 
 
-fun TaxiPark.checkV1(): Boolean {
+fun TaxiPark.checkParetoPrincipleIncomeTrips(): Boolean {
 
     if (trips.isEmpty())
         return false
@@ -167,7 +168,7 @@ fun TaxiPark.checkV1(): Boolean {
         contributionPerDriver[it.driver] =
             contributionPerDriver[it.driver]?.plus(it.cost) ?: it.cost
     }
-    val incomming80Percent = this.trips.map { trip -> trip.cost }.sum() * .8
+    val incoming80Percent = this.trips.sumOf { trip -> trip.cost } * .8
 
     val drivers20Percent = (this.allDrivers.size * .2).roundToInt()
 
@@ -177,7 +178,7 @@ fun TaxiPark.checkV1(): Boolean {
         .sumByDouble { it.value }   // efetuar um somatorio
 
 
-    return s >= incomming80Percent  // verificar se os 20% motoristas que mais receberam contribuiem com 80% o mais do somatorio
+    return s >= incoming80Percent  // verificar se os 20% motoristas que mais receberam contribuiem com 80% o mais do somatorio
 }
 
 private fun Double.almostEquals(that: Double, diff: Double) = abs(that - this) <= diff
