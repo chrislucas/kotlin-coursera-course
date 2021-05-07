@@ -1,8 +1,8 @@
-package com.br.playground3.functions.group.functions
+package com.br.playground3.functions.group.aggregating
 
 import com.br.playground3.exts.log
+import com.br.playground3.exts.toTypedArray
 import com.br.playground3.functions.group.grouping
-import com.br.playground3.toTypedArray
 
 
 /**
@@ -24,22 +24,17 @@ private fun groupingNumberByModuloX(modX: Int) {
     }
  */
     //group.aggregate(::ag).log()
-
-    group.aggregate { _, list: MutableList<Int>?, element, _ ->
-        if (list == null) {
-            mutableListOf(element)
-        } else {
-            list.add(element)
-            list
-        }
-    }.log()
+    val map = group.aggregate { _, list: MutableList<Int>?, element, _ ->
+        list?.apply { add(element) } ?: mutableListOf(element)
+    }
+    map.log()
 }
 
 private fun groupingByModuloX(modX: Int) {
     val interval = (0..100)
-    val map : Map<Int, StringBuilder?> = interval.toTypedArray()
-            // a funcao lambda passada para grouping sera chamada toda a vez que a funcao
-            // lambda passara para funcao aggregate tbm for
+    val map: Map<Int, StringBuilder?> = interval.toTypedArray()
+        // a funcao lambda passada para grouping sera chamada toda a vez que a funcao
+        // lambda passara para funcao aggregate tbm for
         .grouping int@{ int -> int % modX }
         .aggregate { _, buffer: StringBuilder?, e, first ->
             if (first) {
@@ -54,7 +49,7 @@ private fun groupingByModuloX(modX: Int) {
 }
 
 fun main() {
-    for (i in 24 .. 25) {
+    for (i in 24..25) {
         groupingByModuloX(i)
     }
 }

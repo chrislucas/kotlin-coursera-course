@@ -1,6 +1,6 @@
 package com.br.playground3.lambda
 
-import com.br.playground3.log
+import com.br.playground3.exts.log
 
 
 // https://www.coursera.org/learn/kotlin-for-java-developers/lecture/EELeL/return-from-lambda

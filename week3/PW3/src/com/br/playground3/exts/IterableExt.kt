@@ -1,4 +1,4 @@
-package com.br.playground3
+package com.br.playground3.exts
 
 fun <T> Iterable<T>.log() { println(this) }
 

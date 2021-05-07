@@ -1,6 +1,6 @@
 package com.br.playground3.functions.group.filters
 
-import com.br.playground3.log
+import com.br.playground3.exts.log
 
 
 fun simpleFilterOdds() {
