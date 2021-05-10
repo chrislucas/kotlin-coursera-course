@@ -3,6 +3,22 @@ package com.br.week4.properties
 import com.br.week4.properties.model.Point2D
 
 /**
+ *
+ * Em java nao existe o conceito de "propriedade" de uma classe
+ * o que existe sao campos|fields que representam
+ * um atributo de uma classe, e em resumo eles podem ser privados ou publicos
+ *
+ * Para alcançar algo similar a propriedades em kotlin, um campo privado
+ * em java deve ter metodos de acesso (get/set) a ele.
+ *
+ * class JavaClazz {
+ *      // propriedade n
+ *      private int n;
+ *      public int getN()
+ *      public void setN()
+ *
+ * }
+ *
  * prooerty = field + acceessor(s)
  *
  * val = field + getter
