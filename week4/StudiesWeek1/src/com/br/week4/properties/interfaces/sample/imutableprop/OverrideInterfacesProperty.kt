@@ -1,4 +1,4 @@
-package com.br.week4.properties.interfaces
+package com.br.week4.properties.interfaces.sample.imutableprop
 
 
 private fun buildInternalName(id: Int) = "InternalName: $id"

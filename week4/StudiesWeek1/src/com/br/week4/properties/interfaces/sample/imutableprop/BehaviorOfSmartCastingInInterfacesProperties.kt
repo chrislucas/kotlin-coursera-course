@@ -1,4 +1,4 @@
-package com.br.week4.properties.interfaces
+package com.br.week4.properties.interfaces.sample.imutableprop
 /**
  * interfaces tem por definicao a caracterisca de ser "open" do contrario nao poderia
  * ser implementadas por classes ou se tornarem super classes de outras interfaces.
@@ -39,7 +39,7 @@ class SessionProfile(private val accountId: Int) : Session {
     override val user: User = Profile(accountId)
 }
 
-class SessionSubProfile(private val id: Int):Session {
+class SessionSubProfile(private val id: Int): Session {
     override val user: User = SubProfile(id)
 }
 
