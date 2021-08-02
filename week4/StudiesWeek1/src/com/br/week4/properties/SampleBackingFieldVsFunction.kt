@@ -9,7 +9,7 @@ val lambda1 = run {
     42
 }
 // abaixo temos uma funcao getter personalizada
-val variable1: Int
+val variable: Int
     get() {
         println("b")
         return 42
@@ -35,7 +35,7 @@ private fun sample1() {
  * impressao na saida padrao (como no caso abaixo)
  * */
 private fun sample2() {
-    println("$lambda1, $lambda1, $variable1, $variable1")
+    println("$lambda1, $lambda1, $variable, $variable")
 }
 
 fun main() {
