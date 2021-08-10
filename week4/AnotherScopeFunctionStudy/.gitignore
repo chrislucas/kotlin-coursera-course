@@ -1,0 +1,5 @@
+**/.ideia
+.idea/**
+.idea/sonarlint
+**/out
+/out
