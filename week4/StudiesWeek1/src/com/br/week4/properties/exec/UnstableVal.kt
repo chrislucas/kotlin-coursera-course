@@ -14,6 +14,7 @@ val unstable2: Int
 var readOnlyValue: Int = 0xff
     private set
 
+
 fun main() {
     println(readOnlyValue)
     println(readOnlyValue)
