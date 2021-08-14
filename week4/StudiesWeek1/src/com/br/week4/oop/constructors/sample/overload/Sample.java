@@ -23,7 +23,6 @@ public class Sample {
     public void logInfo(int value, double decimal) {
         logInfo(value);
         System.out.println(decimal);
-        ;
     }
 
     public void logInfo(int value, double decimal, Point2D p) {
