@@ -4,11 +4,15 @@ import com.br.week4.oop.clazz.modifiers.data.Point2f
 
 object ObjConstants {
 
+    const val ZERO = 0.0
+
     /**
      * se usarmos JvmField numa variavel top-level de um Object um static field sera gerado
      *
      * bytecode
      *   public final static Lcom/br/week4/oop/clazz/modifiers/data/Point2f; origin
+     *
+     *   Essa eh a forma de expor o field sem precisar de metodos de acesso
      * */
     @JvmField
     val origin = Point2f(0.0, 0.0)
@@ -54,6 +58,8 @@ object ObjConstants {
 
 class ClassConstants {
 
+
+
     /**
      *
      * Se utilizarmos JvmField numa variavel top-level de uma classe regular uma regular field
@@ -77,5 +83,7 @@ class ClassConstants {
     companion object {
         @JvmStatic
         val staticOrigin = Point2f(2.0, 2.0)
+
+        const val ZERO = 0.0
     }
 }

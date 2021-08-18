@@ -1,0 +1,10 @@
+Search: memory leak inner class java
+
+
+https://pszklarska.medium.com/catch-leak-if-you-can-608a99537d8a
+http://mail.openjdk.java.net/pipermail/lambda-dev/2010-July/001961.html
+https://www.baeldung.com/java-memory-leaks
+https://stackoverflow.com/questions/49154634/why-does-static-inner-class-mitigate-memory-leak
+https://dzone.com/articles/a-troublesome-legacy-memory-leaks-in-java
+https://www.infoworld.com/article/3526554/avoid-memory-leaks-in-inner-classes.html
+https://speedandfunction.com/javas-anonymous-inner-classes-proceed-caution/
