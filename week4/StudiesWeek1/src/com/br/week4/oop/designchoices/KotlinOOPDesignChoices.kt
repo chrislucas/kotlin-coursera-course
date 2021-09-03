@@ -1,6 +1,5 @@
 package com.br.week4.oop.designchoices
 
-import com.br.week4.oop.designchoices.delegateInitInt
 import kotlin.reflect.KProperty
 
 /**
@@ -43,7 +42,7 @@ import kotlin.reflect.KProperty
  * do curso kotlin for java developers
  * */
 
-class SafeUnSafeCasting(var numberValue1: Int?, private val initInt: (() -> Int?)? = null) {
+class SafeUnSafeCasting(var mutableInt1: Int?, private val initInt: (() -> Int?)? = null) {
     /**
      * 1) val T? com valor inicial so faz sentido
      * se o valor vier de outra variavel
@@ -54,7 +53,7 @@ class SafeUnSafeCasting(var numberValue1: Int?, private val initInt: (() -> Int?
      * }
      *
      * */
-    val numberValue2: Int? = numberValue1
+    val immutableInt1: Int? = mutableInt1
 
     /**
      * variaveis que do tipo val que tem getters personalizados nao
@@ -65,7 +64,7 @@ class SafeUnSafeCasting(var numberValue1: Int?, private val initInt: (() -> Int?
      *      // nao se sabe o que pode ocorrer dentro do getter personalizado
      * }
      * */
-    val valueWithCustomGetter: Int? = 2
+    val immutableIntWithCustomGetter: Int? = 2
         /**
          * Esse getter poderia ter algum procedimento que
          * retorna-se null e seria aceito em tempo de execucao
@@ -74,24 +73,42 @@ class SafeUnSafeCasting(var numberValue1: Int?, private val initInt: (() -> Int?
         get() = field?.times(2)
 
 
-    var numberValue3: Int? = 10
+    var mutableInt2: Int? = 10
 
-    var numberValue4: Int? = 10
+    fun checkSmartCastForMutableNullableMember() {
+        if (mutableInt2 is Int) {
+            /**
+             * Smart cast nao funciona aqui pq essa variavel pode ser modificada
+             * por outra funcao
+             * */
+            println(mutableInt2?.times(2))
+            // podemos forçar o casting usando operador 'as', mas eh inseguro
+            //println(mutableInt2 as Int * 2)
+            // podemos usar o as?
+            // que eh meio inutil, mais simples usar o null safe acima
+            println((mutableInt2 as? Int)?.times(2) )
+        }
+    }
+
+    var mutableIntWithCustomGetter: Int? = 10
+        // a variavel pode ser alterada para um valor null
+        // por isso o compilador exige o operador null safe ?
         get() = field?.times(2)
 
-    val numberValue5: Int? by initInt
+    val immutableIntByDelegate: Int? by initInt
 
-    fun test(value: Int?) {
+    fun checkSimpleSmartCast(value: Int?) {
         if (value is Int) {
             // depois de checar se a variavel eh nula ocorre o smart cast
             // e podemos usar a variavel como do tipo Int
             println(value * 2)
         }
 
+        //  = as? Int
         println(value?.times(2))
     }
 
-    fun testLocalVariable(value: Int?) {
+    fun checkSmartCastInLocalVariable(value: Int?) {
         var mValue: Int? = value
         if (mValue is Int) {
             mValue *= 2
@@ -99,7 +116,7 @@ class SafeUnSafeCasting(var numberValue1: Int?, private val initInt: (() -> Int?
         }
     }
 
-    fun testLocalVariable(value: Int?, transform: (Int?) -> Int?) {
+    fun checkSmartCastInLocalVariable(value: Int?, transform: (Int?) -> Int?) {
         var mValue: Int? = value
         // mesmo apos o checar se mValue nao eh nulo
         // se ocorrer alguma mudanca dentro da instrucao condicional
@@ -126,23 +143,24 @@ private operator fun (() -> Int?)?.getValue(c: SafeUnSafeCasting, property: KPro
 
 private fun testMemberClass1(instance: SafeUnSafeCasting) {
 
-    instance.test(10)
+    instance.checkSimpleSmartCast(10)
 
-    if (instance.numberValue1 is Int) {
-        println("Variavel numberValue1 ${instance.numberValue1}")
+    if (instance.mutableInt1 is Int) {
+        println("Variavel numberValue1 ${instance.mutableInt1}")
     }
 
-    if (instance.numberValue2 is Int) {
-        println("Variavel numberValue2 ${instance.numberValue1}")
+
+    if (instance.immutableInt1 is Int) {
+        println("Variavel numberValue2 ${instance.mutableInt1}")
     }
 
-    if (instance.valueWithCustomGetter is Int) {
-        println("Variavel com getter personalizado ${instance.valueWithCustomGetter?.times(2)}")
+    if (instance.immutableIntWithCustomGetter is Int) {
+        println("Variavel com getter personalizado ${instance.immutableIntWithCustomGetter?.times(2)}")
     }
 }
 
 private fun testMemberClass2(instance: SafeUnSafeCasting) {
-    instance.numberValue5?.let {
+    instance.immutableIntByDelegate?.let {
         println("Variavel numberValue5 = $it")
     }
 }
