@@ -28,8 +28,6 @@ l
 <src/com/br/week4/oop/clazz/constants/InteroperabilityII.java,6\a\6a8dcc90412e7a297df028365e0b7857d402656a
 j
 :src/com/br/week4/oop/clazz/constants/Interoperability.java,6\a\6ab991b879bed7551309ad0891ac5c8b2c81efc0
-d
-4src/com/br/week4/oop/clazz/modifiers/data/Point2f.kt,c\7\c7c1bb6eac2858091561ba59d68490993b83a012
 c
 3src/com/br/week4/oop/clazz/modifiers/data/TestEq.kt,d\c\dccab7b4f7b77bbc92069b513e90281eb8b76a50
 {

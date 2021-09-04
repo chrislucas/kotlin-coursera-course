@@ -9,6 +9,7 @@ package com.br.week4.operators.overloading
  * */
 
 operator fun GeoPoint2D.plus(other: GeoPoint2D):  GeoPoint2D = GeoPoint2D(x + other.x, y + other.y)
+
 operator fun GeoPoint2D.minus(other: GeoPoint2D):  GeoPoint2D = GeoPoint2D(x - other.x, y - other.y)
 
 operator fun GeoPoint2D.times(scale: Double):  GeoPoint2D = GeoPoint2D(x * scale, y * scale)
