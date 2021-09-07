@@ -6,8 +6,7 @@ class Graph {
         println(0xff)
     }
 
-    inner class Matrix {
-
+    inner class AdjacencyMatrix {
         fun log() {
             // como acessar a referencia da outer class
             this@Graph.log()
@@ -26,7 +25,7 @@ fun main() {
 
     val graph = Graph()
     graph.log()
-    val matrix = graph.Matrix()
+    val matrix = graph.AdjacencyMatrix()
     matrix.log()
     val adjList = graph.AdjacencyList()
     adjList.log()
