@@ -53,6 +53,10 @@ package com.br.week4.conventions.getoperator;
 /*
     reified keyword
     https://stackoverflow.com/questions/45949584/how-does-the-reified-keyword-in-kotlin-work
-    https://kotlinlang.org/docs/inline-functions.html
+    https://kotlinlang.org/docs/inline-functions.html#reified-type-parameters
     https://www.baeldung.com/kotlin/reified-functions
+    https://kotlinlang.org/docs/inline-functions.html
+
+    Java generics type erasure
+    https://stackoverflow.com/questions/339699/java-generics-type-erasure-when-and-what-happens
  */
