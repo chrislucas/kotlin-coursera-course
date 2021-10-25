@@ -27,7 +27,7 @@ class CubeStruct<T>(x: Int, y: Int, z: Int, private val cube: Cube<T?>) {
     //val cube : Cube<Any?> = Array(x) {Array(y) { Array(z) { null } } }
 
     operator fun <T> set(x: Int, y: Int, z: Int, value: T?) {
-        cube[x][y][z] = value
+        //cube[x][y][z] = value
     }
 
     operator fun get(x: Int, y: Int, z: Int) = cube[x][y][z]
