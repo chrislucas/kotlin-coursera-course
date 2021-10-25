@@ -50,3 +50,13 @@ p
 @src/com/br/week4/oop/clazz/modifiers/hierarchy/MathExpression.kt,4\5\4507e260c0f05c1d7c5e55e1829fe16d9feb2e0f
 }
 Msrc/com/br/week4/oop/clazz/modifiers/hierarchy/restriction/WithSealedClass.kt,3\a\3a2fe43d4894a85560ac0c27884a5c07005d5b68
+d
+4src/com/br/week4/oop/clazz/modifiers/data/Point2f.kt,c\7\c7c1bb6eac2858091561ba59d68490993b83a012
+\
+,src/com/br/week4/operators/package-info.java,1\e\1e69813f03c0fccfc886a7f76d3b3711e8c5198c
+n
+>src/com/br/week4/oop/clazz/modifiers/inner/SampleInnerClass.kt,c\e\ce70a8cc7b7ebfc23e244e4bb223c6fc403339f7
+l
+<src/com/br/week4/operators/conventions/CompareComparables.kt,5\5\55424db9f5965c4b12f7b57a06a2ea54ce3d2923
+l
+<src/com/br/week4/operators/conventions/iteratoris/Iterate.kt,5\6\56ab60d7ca1552f8d6b3c1aa1161b6a9c28b2223

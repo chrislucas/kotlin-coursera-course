@@ -33,7 +33,7 @@ fun main() {
      * Int.mod(other: Int)
      * Calculates the remainder of flooring division of this value by the other value.
      * */
-    println(constant.map { it?.mod(2) == 0 })
+    println(constant.map { it?.rem(2) == 0 })
 
 
     // Unresolved reference. None of the following candidates is applicable because of receiver type mismatch:

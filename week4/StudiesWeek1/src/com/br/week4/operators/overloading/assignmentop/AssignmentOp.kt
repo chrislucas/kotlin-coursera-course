@@ -1,10 +1,21 @@
-package com.br.week4.operators.overloading
+package com.br.week4.operators.overloading.assignmentop
+
+import com.br.week4.operators.overloading.GeoPoint2D
+import com.br.week4.operators.overloading.MutableGeoPoint2D
 
 
 /**
  * += plusAssign
  *
  * */
+
+
+operator fun GeoPoint2D.plus(other: GeoPoint2D) = GeoPoint2D(x + other.x, y + other.y)
+
+// Nao faz muito sentido para uma classe com atributos imutaveeis
+operator fun GeoPoint2D.plusAssign(scale: Int) {
+    GeoPoint2D(x + scale, y + scale)
+}
 
 
 operator fun MutableGeoPoint2D.plusAssign(other: GeoPoint2D) {
@@ -20,14 +31,23 @@ operator fun MutableGeoPoint2D.plusAssign(other: MutableGeoPoint2D) {
 private fun testPlusAssignWithImmutableMemberClass() {
     var a = GeoPoint2D(1.0, 2.5)
     val q = GeoPoint2D(2.0, -2.0)
-
     /**
-     * se a operacao + for apliaca entre instancias de uma classe
+     * se a operacao += pluAssign for apliaca entre instancias de uma classe
      * cujo seus membros sao imutaveis, o operador que sera chamado eh o
      * plus(T) pq ele cria uma nova instancia
+     *
+     * Se for definido um operador plus e plusAssign com a mesma assinatura
+     * digamos
+     * operator fun GeoPoint2D.plus(other: GeoPoint2D): GeoPoint2D
+     * operator fun GeoPoint2D.plusAssign(other: GeoPoint2D): Unit
+     *
+     * Teremos um erro em tempo de compilacao de ambiguidade
+     * - Assignment operators ambiguity. All these functions match.
      * */
 
     a += q
+    println(a)
+    a += 1  // obviamante nada muda aqui
     println(a)
 }
 
@@ -63,5 +83,6 @@ private fun testPlusAssignWithMutableMemberClass2() {
 
 
 fun main() {
-    testPlusAssignWithMutableMemberClass2()
+    //testPlusAssignWithMutableMemberClass2()
+    testPlusAssignWithImmutableMemberClass()
 }
