@@ -10,8 +10,8 @@ private fun check() {
     val s = "chris"
     val r = "chris"
     println(s == r)
-    println(null == r)
-    println(null == null)
+    println(message = null == r)
+    println(message = null == null)
 }
 
 fun main() {
