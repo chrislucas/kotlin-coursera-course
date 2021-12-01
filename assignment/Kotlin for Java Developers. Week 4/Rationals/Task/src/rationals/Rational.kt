@@ -2,26 +2,34 @@ package rationals
 
 import java.math.BigInteger
 
-
 infix fun Int.divBy(that: Int) = Rational(BigInteger.valueOf(this * 1L), BigInteger.valueOf(that * 1L))
 
 infix fun Long.divBy(that: Long) = Rational(BigInteger.valueOf(this), BigInteger.valueOf(that))
 
 infix fun BigInteger.divBy(that: BigInteger) = Rational(this, that)
 
-// TODO
-fun String.toRational() = ""
+fun String.toRational(): Rational =
+    this.split("/")
+        .map { it.toBigInteger() }
+        .run {
+            if (this.size > 1) {
+                Rational(this[0], this[1])
+            } else {
+                Rational(this[0], BigInteger.ONE)
+            }
+        }
 
-data class Rational(val p: BigInteger, val q: BigInteger): Comparable<Rational> {
+
+data class Rational(val p: BigInteger, val q: BigInteger) : Comparable<Rational> {
     override fun equals(other: Any?): Boolean {
         val that = other as Rational?
-
+        val refThis = this
         return that?.run {
             val (thatN, thatD) = that
-            val (thisN, thisD) = this
+            val (thisN, thisD) = refThis
 
             val (normThatN, normThatD) = that.normalize()
-            val (normThisN, normThisD) = this.normalize()
+            val (normThisN, normThisD) = refThis.normalize()
 
             (thatN == thisN && thatD == thisD) ||
                     (normThatN == normThisN && normThatD == normThisD)
@@ -31,7 +39,7 @@ data class Rational(val p: BigInteger, val q: BigInteger): Comparable<Rational> 
 
     override fun toString(): String {
         return this.normalize().run {
-            if (q > BigInteger.ONE) "$p/$q" else "$p"
+            if (q == BigInteger.ONE) "$p" else "$p/$q"
         }
     }
 
@@ -41,8 +49,19 @@ data class Rational(val p: BigInteger, val q: BigInteger): Comparable<Rational> 
         return result
     }
 
+
+    fun getDouble() = p.toDouble().div(q.toDouble())
+
     override fun compareTo(other: Rational): Int {
-        return 0
+        val a = getDouble()
+        val b = other.getDouble()
+        return if (a < b) {
+            -1
+        } else if (a > b) {
+            1
+        } else {
+            0
+        }
     }
 }
 
@@ -84,34 +103,41 @@ operator fun Rational.minus(that: Rational): Rational {
 
 fun Rational.normalize(): Rational {
     val gdc = p.gcd(q)
-    return Rational(p / gdc, q / gdc)
+    return if (q < BigInteger.ZERO) {
+        -Rational(p / gdc, q / gdc)
+    } else {
+        Rational(p / gdc, q / gdc)
+    }
 }
 
 operator fun Rational.div(that: Rational) = Rational(this.p * that.q, this.q * that.p)
 
 operator fun Rational.times(that: Rational) = Rational(this.p * that.p, this.q * that.q)
 
-operator fun Rational.unaryMinus() = Rational(-this.p, this.q)
+operator fun Rational.unaryMinus() =
+    if (q > BigInteger.ZERO) {
+        Rational(-this.p, this.q)
+    } else {
+        Rational(-this.p, -this.q)
+    }
 
-class RangeRational(override val endInclusive: Rational, override val start: Rational) : ClosedRange<Rational> {
+class RationalRange(
+    override val start: Rational,
+    override val endInclusive: Rational,
+) : ClosedRange<Rational> {
 
+    infix operator fun RationalRange.contains(rational: Rational) =
+        start.getDouble() <= rational.getDouble() && rational.getDouble() <= endInclusive.getDouble()
 }
 
 // Original
-operator fun Rational.rangeTo(that: Rational) = RangeRational(this, that)
-
-
-infix operator fun Rational.contains(range: RangeRational) = true
-
+operator fun Rational.rangeTo(that: Rational) = RationalRange(this, that)
 
 // Original
-operator fun Rational.contains(that: Rational) = true
+//operator fun Rational.contains(that: Rational) = true
 
 // Original
 // operator fun Rational.compareTo(that: Rational) = 1
-
-
-
 
 private fun checkAssignment() {
     val half = 1 divBy 2
@@ -140,7 +166,7 @@ private fun checkAssignment() {
 
     println(half < twoThirds)
 
-    println(half in (third..twoThirds) )
+    println(half in (third..twoThirds))
     println(2000000000L divBy 4000000000L == 1 divBy 2)
 
     println(
@@ -149,50 +175,15 @@ private fun checkAssignment() {
     )
 }
 
-private fun checkRationalPlusOperator() {
-    val half = 1 divBy 2
-    val third = 1 divBy 3
+private fun checkUnaryOperator() {
 
-    val sum: Rational = half + third
-    println(5 divBy 6 == sum)
-}
-
-private fun checkRationalMinusOperator() {
-    val half = 1 divBy 2
-    val third = 1 divBy 3
-
-    val difference: Rational = half - third
-    println(1 divBy 6 == difference)
-}
-
-private fun checkRationalDivOperator() {
-    val half = 1 divBy 2
-    val third = 1 divBy 3
-
-    val quotient: Rational = half / third
-    println(3 divBy 2 == quotient)
-}
-
-
-private fun checkRationalMultiplierOperator() {
-    val half = 1 divBy 2
-    val third = 1 divBy 3
-
-    val product: Rational = half * third
-    println(1 divBy 6 == product)
-}
-
-private fun checkAllOperators() {
-    checkRationalPlusOperator()
-    checkRationalMinusOperator()
-    checkRationalDivOperator()
-    checkRationalMultiplierOperator()
-}
-
-private fun checkContainsOperator() {
-
+    println(-(1 divBy -2))
+    println(-(-1 divBy 2))
+    println(-(1 divBy 2))
+    println(-(-1 divBy -2))
+    println(-(-1 divBy -1))
 }
 
 fun main() {
-    checkAllOperators()
+    checkUnaryOperator()
 }
