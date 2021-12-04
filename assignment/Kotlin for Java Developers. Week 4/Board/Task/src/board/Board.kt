@@ -1,7 +1,7 @@
 package board
 
 data class Cell(val i: Int, val j: Int) {
-    override fun toString()= "($i, $j)"
+    override fun toString() = "($i, $j)"
 }
 
 enum class Direction {
@@ -12,6 +12,33 @@ enum class Direction {
         DOWN -> UP
         RIGHT -> LEFT
         LEFT -> RIGHT
+    }
+}
+
+
+fun SquareBoard.isValidCell(cell: Cell): Boolean {
+    val (i, j) = cell
+    return i <= width  || i > 0 || j <= width || j > 0
+}
+
+internal fun SquareBoard.checkDirection(direction: Direction, cell: Cell): Cell? {
+
+    fun create(cell: Cell, direction: Direction): Cell {
+        val (i, j) = cell
+        return when (direction) {
+            Direction.UP -> Cell(i - 1, j)
+            Direction.DOWN -> Cell(i + 1, j)
+            Direction.LEFT -> Cell(i, j + 1)
+            else -> Cell(i, j - 1)
+        }
+    }
+
+    return create(cell, direction).run {
+        if (isValidCell(this)) {
+            this
+        } else {
+            null
+        }
     }
 }
 
