@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="board.TestGameBoard" tests="11" skipped="0" failures="0" errors="0" timestamp="2021-12-05T03:08:00" hostname="BR0C02DX78ZMD6N" time="0.025">
+<testsuite name="board.TestGameBoard" tests="11" skipped="0" failures="0" errors="0" timestamp="2021-12-05T03:24:00" hostname="BR0C02DX78ZMD6N" time="0.022">
   <properties/>
-  <testcase name="test01GetAndSetElement" classname="board.TestGameBoard" time="0.004"/>
+  <testcase name="test01GetAndSetElement" classname="board.TestGameBoard" time="0.003"/>
   <testcase name="test02Filter" classname="board.TestGameBoard" time="0.006"/>
-  <testcase name="test03All" classname="board.TestGameBoard" time="0.001"/>
+  <testcase name="test03All" classname="board.TestGameBoard" time="0.0"/>
   <testcase name="test04Any" classname="board.TestGameBoard" time="0.002"/>
   <testcase name="test05TheSameCell" classname="board.TestGameBoard" time="0.001"/>
-  <testcase name="test06FindReturnsTheSameCell" classname="board.TestGameBoard" time="0.001"/>
+  <testcase name="test06FindReturnsTheSameCell" classname="board.TestGameBoard" time="0.0"/>
   <testcase name="test07FilterTheSameCell" classname="board.TestGameBoard" time="0.001"/>
-  <testcase name="test08AllAny" classname="board.TestGameBoard" time="0.008"/>
+  <testcase name="test08AllAny" classname="board.TestGameBoard" time="0.007"/>
   <testcase name="test09AllAny" classname="board.TestGameBoard" time="0.0"/>
   <testcase name="test10AllAny" classname="board.TestGameBoard" time="0.0"/>
   <testcase name="test11AllAny" classname="board.TestGameBoard" time="0.0"/>
