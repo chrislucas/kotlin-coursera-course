@@ -2,39 +2,35 @@ package board
 
 import kotlin.math.min
 
-private inline fun <reified T> createMatrix2D(w: Int, h: Int, fn: (Int, Int) -> T?): Array<Array<T?>> =
-    Array(w) { i -> Array(h) { j -> fn(i, j) } }
-
 open class TableSquareBoard(override val width: Int) : SquareBoard {
 
-    private val mWith: Int
-        get() = width
+    protected val content: Array<Array<Any?>> = createMatrix<Any?>(width + 1, width + 1) { null }
 
-    protected val content = createMatrix2D<Any?>(mWith, mWith) { _, _ -> null }
+    private val matrix: Array<Array<Cell>> = createMatrixWithInitFun(width + 1, width + 1) { i, j -> Cell(i, j) }
 
     protected val collection: MutableList<Cell>
         get() {
             val mutableList = mutableListOf<Cell>()
-            for (i in 0 until mWith) {
-                for (j in 0 until mWith)
-                    mutableList += Cell(i + 1, j + 1)
+            for (i in 0 until width) {
+                for (j in 0 until width)
+                    mutableList += matrix[i + 1, j + 1]
             }
             return mutableList
         }
 
     override fun getCellOrNull(i: Int, j: Int): Cell? {
-        return if (i > mWith || j > mWith) {
+        return if (i > width || j > width) {
             null
         } else {
-            Cell(i, j)
+            matrix[i, j]
         }
     }
 
     override fun getCell(i: Int, j: Int): Cell {
-        return if (i > mWith || j > mWith) {
+        return if (i > width || j > width) {
             throw IllegalArgumentException("($i, $j) exceed the dimension of board")
         } else {
-            Cell(i, j)
+            matrix[i, j]
         }
     }
 
@@ -42,14 +38,16 @@ open class TableSquareBoard(override val width: Int) : SquareBoard {
 
     override fun getRow(i: Int, jRange: IntProgression): List<Cell> {
         val mutableList = mutableListOf<Cell>()
-        if (i < mWith) {
-            val range = if (jRange.first < jRange.last) {
-                jRange.first..min(mWith, jRange.last)
-            } else {
-                min(mWith, jRange.last)..jRange.first
+        if (i <= width) {
+            val range = jRange.run {
+                if (first <= last) {
+                    first..min(width, last)
+                } else {
+                    min(width, first) downTo last
+                }
             }
             for (k in range) {
-                mutableList += Cell(i, k)
+                mutableList += matrix[i, k]
             }
         }
         return mutableList
@@ -57,19 +55,30 @@ open class TableSquareBoard(override val width: Int) : SquareBoard {
 
     override fun getColumn(iRange: IntProgression, j: Int): List<Cell> {
         val mutableList = mutableListOf<Cell>()
-        if (j < mWith) {
-            val range = if (iRange.first < iRange.last) {
-                iRange.first..min(mWith, iRange.last)
-            } else {
-                min(mWith, iRange.last)..iRange.first
+        if (j <= width) {
+            val range = iRange.run {
+                if (first <= last) {
+                    first..min(width, last)
+                } else {
+                    min(width, first) downTo last
+                }
             }
             for (k in range) {
-                mutableList += Cell(k, j)
+                mutableList += matrix[k, j]
             }
         }
         return mutableList
     }
 
-    override fun Cell.getNeighbour(direction: Direction): Cell? = checkDirection(direction, this)
+    override fun Cell.getNeighbour(direction: Direction): Cell? =
+        checkDirection(direction, this)?.run {
+            val (i, j) = this
+            matrix[i, j]
+        }
 
+}
+
+fun main() {
+    val matrix = createMatrix<Int?>(3, 3) { null }
+    println(matrix)
 }

@@ -15,10 +15,17 @@ enum class Direction {
     }
 }
 
+inline fun <reified T> createMatrix(w: Int, h: Int, fn: () -> T?): Array<Array<T?>> =
+    Array(w) { Array(h) { fn() } }
+
+inline fun <reified T> createMatrixWithInitFun(w: Int, h: Int, fn: (Int, Int) -> T): Array<Array<T>> =
+    Array(w) { i -> Array(h) { j -> fn(i, j) } }
+
+operator fun <T> Array<Array<T>>.get(i: Int, j: Int) = this[i][j]
 
 fun SquareBoard.isValidCell(cell: Cell): Boolean {
     val (i, j) = cell
-    return i <= width  || i > 0 || j <= width || j > 0
+    return i in 1..width && j in 1..width
 }
 
 internal fun SquareBoard.checkDirection(direction: Direction, cell: Cell): Cell? {
@@ -28,8 +35,8 @@ internal fun SquareBoard.checkDirection(direction: Direction, cell: Cell): Cell?
         return when (direction) {
             Direction.UP -> Cell(i - 1, j)
             Direction.DOWN -> Cell(i + 1, j)
-            Direction.LEFT -> Cell(i, j + 1)
-            else -> Cell(i, j - 1)
+            Direction.LEFT -> Cell(i, j - 1)
+            else -> Cell(i, j + 1)
         }
     }
 

@@ -1,6 +1,6 @@
 package board
 
-class TableGameBoard<T>(override val width: Int) : TableSquareBoard(width), GameBoard<T> {
+class TableGameBoard<T>(mWidth: Int) : TableSquareBoard(mWidth), GameBoard<T> {
 
     override operator fun get(cell: Cell): T? {
         return if (isValidCell(cell)) {
@@ -12,8 +12,10 @@ class TableGameBoard<T>(override val width: Int) : TableSquareBoard(width), Game
     }
 
     override operator fun set(cell: Cell, value: T?) {
-        val (i, j) = cell
-        content[i][j] = value
+        if (isValidCell(cell)) {
+            val (i, j) = cell
+            content[i][j] = value
+        }
     }
 
     override fun filter(predicate: (T?) -> Boolean): Collection<Cell> {
