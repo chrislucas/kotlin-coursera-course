@@ -1,4 +1,4 @@
-package com.br.samples.lambdavsmethodref
+package com.br.samples.lambdavsmethodref.s1
 
 import kotlin.properties.ReadWriteProperty
 import kotlin.reflect.KProperty
