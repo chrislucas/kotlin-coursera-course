@@ -1,0 +1,8 @@
+//
+    Lambda X method reference
+    https://proandroiddev.com/kotlin-lambda-vs-method-reference-fdbd175f6845
+
+    first-class citize:
+        - function that can be passed as an argument
+        - or used as a return value
+//
