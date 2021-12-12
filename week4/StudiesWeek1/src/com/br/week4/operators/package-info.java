@@ -12,4 +12,7 @@ package com.br.week4.operators;
  *
  * Arrays baseados em linguagens que rodam numa JVM precisa definir seus tipos em tempo de compilacao.
  *
+ * Motivos para usar ou nao operator overloading
+ * https://www.coursera.org/learn/kotlin-for-java-developers/lecture/a1bX5/not-using-operator-overloading
+ *
  * */

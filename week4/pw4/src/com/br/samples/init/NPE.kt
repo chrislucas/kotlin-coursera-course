@@ -26,6 +26,5 @@ class B(override val value: String) : A(value)
 
 fun main() {
     val b = B("a")
-
-    println(b.value)
+    println("Valor da propriedade 'value da classe B ${b.value}")
 }

@@ -6,10 +6,10 @@ package com.br.week4.conventions.playground
 data class WrapperComparableTypes<T:Comparable<T>>(val value: T)
 
 /*
-    a > b - a.compareTo(b) > 0
-    a < b - a.compareTo(b) < 0
-    a >= b - a.compareTo(b) >= 0
-    a <= b - a.compareTo(b) <= 0
+    a > b -> a.compareTo(b) > 0
+    a < b -> a.compareTo(b) < 0
+    a >= b -> a.compareTo(b) >= 0
+    a <= b -> a.compareTo(b) <= 0
  */
 
 operator fun <T:Comparable<T>>  WrapperComparableTypes<T>.compareTo(wrapper: WrapperComparableTypes<T>)
