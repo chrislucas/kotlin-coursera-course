@@ -21,3 +21,7 @@ private fun checkCubeOfDouble() {
     cube[0, 0, 0] = 1.0
     println(cube)
 }
+
+fun main() {
+    checkCubeOfDouble()
+}
