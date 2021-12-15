@@ -7,9 +7,9 @@ package com.br.week5.inlinefun
 
 //fun exec(fn: () -> Unit) = fn()
 
-fun <R> exec(fn: () -> R): R = fn()
+fun <R> nonInlineExec(fn: () -> R): R = fn()
 
-inline fun <R> execute(fn: () -> R): R = fn()
+inline fun <R> inlineExec(fn: () -> R): R = fn()
 
 private fun checkExec() {
     val name = "chirs"
@@ -20,7 +20,7 @@ private fun checkExec() {
 
         Isso causa um overhead muito grande mesmo para simples implementacao como essa
      */
-    exec {
+    nonInlineExec {
         println("Capturando $name")
     }
 
@@ -40,7 +40,7 @@ private fun checkExecute() {
         e somente faz a chamada dela, então o corpo dessa funcao lambda também será copiado
         para o local da chamada
      */
-    execute {
+    inlineExec {
         println("Inlined function $variable")
     }
 
