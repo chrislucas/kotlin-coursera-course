@@ -1,4 +1,4 @@
-package com.br.week5.collections
+package com.br.week5.sequences
 
 /*
     Samples
