@@ -1,5 +1,7 @@
 package com.br.week5.inlinefun.exercise.filter
 
+import com.br.week5.eq
+
 /*
     https://www.coursera.org/learn/kotlin-for-java-developers/ungradedWidget/lmAxP/kotlin-playground-inlining-of-the-filter-function
  */
@@ -24,9 +26,6 @@ fun filterNonZeroGenerated(list: List<Int>): List<Int> {
 
     return newList
 }
-
-
-infix fun String.eq(other: String) = this == other
 
 fun main() {
     val list = listOf(1, 2, 3)
