@@ -9,5 +9,5 @@ import javax.annotation.meta.TypeQualifierDefault
  */
 
 @javax.annotation.Nonnull
-@TypeQualifierDefault(ElementType.PARAMETER)
+@TypeQualifierDefault(ElementType.PARAMETER, ElementType.TYPE_PARAMETER)
 annotation class ParameterNonNullByDefault

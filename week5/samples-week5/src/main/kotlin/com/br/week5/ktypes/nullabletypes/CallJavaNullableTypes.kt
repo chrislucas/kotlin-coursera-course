@@ -37,7 +37,36 @@ import com.br.sample.nullability.CheckCustomAnnotationNonNull
     - Na pratica precisamos anotar somente o que pode ser Nullable, por definicao/padrao
     o que nao receber anotacao eh NotNUll
 
+    -------------------------------------------------------------------------------------------
+    NOTE QUE NEM SEMPRE SERÄ POSSÍVEL ADICIONAR ANOTACOES NAS CLASSES POR EXEMPLO
+    NO CASO DE ESTARMOS TRABALHANDO COM UMA BIBLIOTECA EXTERNAS QUE NAO TEMOS ACESSO AO CODIGO FONTE.
+
+    NESSE CASO A SAIDA É UMA SEGUNDA OPCAO, DEFINIR EXPLICITAMENTE COMO NULLABLE OU NON-NULL
+    ( (String|Int|Whatever)? OU String|Int|Whatever) O TIPO DA VARIAVEL QUE ESTAMOS
+    RECEBENDO DE UM CODIGO JAVA.
+
+    Se nao estivermos trabalhando com código java e kotlin ao mesmo tempo, a abordagem
+    de definir explicitamente o tipo nos argumentos de funcoes, membros de classes e etc.
+    eh mais simples e o suficiente, pois o kotlin tem o operador null safety para lidar
+    com tipos nulos e a hierarquia de classes nao permite adicionar um tipo nulo a um nao
+    nulo, esse ato infringe a hierarquia causando um erro de compilacao
+
+    Lembrado
+
+    Int? <- Int e para t0do tipo nulável
+
+    val p: Int = 10
+    val q: Int? = p - atribuir a um Int? um Int nao nulo e possivel
+    val s: Int = q -mas a reciproca nao eh verdadeira
+
+    -------------------------------------------------------------------------------------------
+
+    A segunda forma de se evitar NPE é definir explicitamente o tipo da sua variavel
+    como nullable Type? ou nao nullable Type
+
  */
+
+
 
 private fun checkJavaNullableTypes() {
     /*
@@ -86,6 +115,7 @@ private fun checkCallNullableReturnFunction() {
     println(SampleNullableType.showNotNull("null"))
 }
 
+@ParameterNonNullByDefault
 private fun checkParameterNonNUllByDefault(value: Int?) {
     println(value)
     val check = CheckCustomAnnotationNonNull()
@@ -99,5 +129,5 @@ private fun checkParameterNonNUllByDefault(value: Int?) {
 
 
 fun main() {
-    checkCallNullableReturnFunction()
+    checkParameterNonNUllByDefault(null)
 }
