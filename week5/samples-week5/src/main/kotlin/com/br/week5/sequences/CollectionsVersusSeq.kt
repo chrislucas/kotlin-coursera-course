@@ -54,7 +54,7 @@ private fun checkMaxOrNullOnSequence() {
     que as operacoes sejam lançadas para as colecoes posteriores
     até que o resultado dessa operacao seja solicitado pelo programa.
 
-    Esse eh um mecanismo ue adia (lazy) as operacoes que precisam ser
+    Esse eh um mecanismo que adia (lazy) as operacoes que precisam ser
     feitas até que seja solicitado o resultado.
  */
 private fun checkMaxOrNullOnSequenceSeparatedCalls() {

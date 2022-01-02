@@ -48,23 +48,23 @@ files:
 - name: src/board/BoardImpl.kt
   visible: true
   placeholders:
-  - offset: 90
-    length: 6
+  - offset: 65
+    length: 20
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 90
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
-  - offset: 149
-    length: 6
+  - offset: 137
+    length: 23
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 149
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
   text: |+
     package board
@@ -193,14 +193,14 @@ files:
 - name: src/games/game2048/Game2048Helper.kt
   visible: true
   placeholders:
-  - offset: 730
-    length: 6
+  - offset: 1238
+    length: 0
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 730
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
   text: |+
     package games.game2048
@@ -229,14 +229,14 @@ files:
 - name: src/games/game2048/Game2048Initializer.kt
   visible: true
   placeholders:
-  - offset: 820
-    length: 6
+  - offset: 1118
+    length: 0
     placeholder_text: TODO()
     initial_state:
       length: 6
       offset: 820
     initialized_from_dependency: false
-    selected: false
+    selected: true
     status: Unchecked
   text: |-
     package games.game2048
@@ -1608,6 +1608,12 @@ files:
 - name: assignmentKey
   visible: false
   learner_created: false
+- name: src/board/MyGameBoardImpl.kt
+  visible: true
+  learner_created: true
+- name: src/board/MatrixExt.kt
+  visible: true
+  learner_created: true
 feedback_link: https://www.coursera.org/learn/kotlin-for-java-developers/programming/NSid0/game-2048-game-of-fifteen/discussions
 status: Unchecked
 record: -1

@@ -18,5 +18,25 @@ package games.game2048
  * You can find more examples in 'TestGame2048Helper'.
 */
 fun <T : Any> List<T?>.moveAndMergeEqual(merge: (T) -> T): List<T> =
-        TODO()
+    with(this) {
+        val filtered = this.asSequence()
+            .filterNotNull()
+            .toMutableList()
+
+        fun mergeAdjacentEquals() {
+            var idx = 0
+            while (idx < filtered.size - 1) {
+                if (filtered[idx] == filtered[idx + 1]) {
+                    filtered[idx] = merge(filtered[idx])
+                    filtered.removeAt(idx + 1)
+                }
+                idx += 1
+            }
+        }
+
+        mergeAdjacentEquals()
+
+        filtered.toList()
+    }
+
 
