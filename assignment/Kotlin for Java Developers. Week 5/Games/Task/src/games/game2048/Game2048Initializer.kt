@@ -28,10 +28,9 @@ object RandomGame2048Initializer : Game2048Initializer<Int> {
             if (spaces.isEmpty())
                 null
             else {
-                val idx = Random.nextInt(spaces.size - 1)
+                val idx = Random.nextInt( 0, spaces.size - 1 )
                 Pair(spaces[idx], generateRandomStartValue())
             }
         }
-
     }
 }

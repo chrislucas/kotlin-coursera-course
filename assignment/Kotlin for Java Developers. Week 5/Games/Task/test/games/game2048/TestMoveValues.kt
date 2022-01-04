@@ -23,7 +23,31 @@ class TestMoveValues : AbstractTestGameWithSmallNumbers() {
     fun testMoveAndMerge() = testAllDirections("2-2- -2-2 --2- ---2", "---4 ---4 ---2 ---2")
 
     @Test
+    fun testMoveColumns() = testAllDirections("2--- 2--- 2--- 2---", "---2 ---2 ---2 ---2")
+
+    @Test
+    fun testNoMoveColumns() = testAllDirections("---2 ---2 ---2 ---2", "---2 ---2 ---2 ---2", false)
+
+    @Test
+    fun testMoveRows() = testAllDirections("2222 ---- ---- ----", "--44 ---- ---- ----")
+
+    @Test
+    fun testMoveRows2() = testAllDirections("2222 2222 2222 2222", "--44 --44 --44 --44")
+
+    @Test
     fun testMerge() = testAllDirections("2-22 2-42 22-2 ----", "--24 -242 --24 ----")
+
+    @Test
+    fun testMoveRows3() =testAllDirections("22-2 22-2 2222 2222", "--24 --24 --44 --44")
+
+    @Test
+    fun testMoveRows4() =testAllDirections("2-22 2-22 2222 2222", "--24 --24 --44 --44")
+
+    @Test
+    fun testMerge2() = testAllDirections("2244 2-42 22-2 ----", "--48 -242 --24 ----")
+
+    @Test
+    fun testMerge3() = testAllDirections("2242 2-42 22-2 ----", "-442 -242 --24 ----")
 
     private fun testAllDirections(inputString: String, expectedString: String, move: Boolean = true) {
         val input = TestBoard(inputString)
@@ -32,7 +56,12 @@ class TestMoveValues : AbstractTestGameWithSmallNumbers() {
         testRegularAndReversedDirections(DOWN, input.mirror(), expected.mirror(), move)
     }
 
-    private fun testRegularAndReversedDirections(direction: Direction, input: TestBoard, expected: TestBoard, move: Boolean) {
+    private fun testRegularAndReversedDirections(
+        direction: Direction,
+        input: TestBoard,
+        expected: TestBoard,
+        move: Boolean
+    ) {
         testMove(direction, input, expected, move)
         testMove(direction.reversed(), input.reversed(), expected.reversed(), move)
     }
@@ -41,9 +70,13 @@ class TestMoveValues : AbstractTestGameWithSmallNumbers() {
         val board = createBoard(input)
         val actualMove = board.moveValues(direction)
         val result = board.toTestBoard()
-        Assert.assertEquals("Incorrect move to $direction.\n" +
-                "Input:\n$input\n", expected, result)
-        Assert.assertEquals("The 'moveValues' method returns incorrect result. Direction: $direction.\n" +
-                "Input:\n$input\n", expectedMove, actualMove)
+        Assert.assertEquals(
+            "Incorrect move to $direction.\n" +
+                    "Input:\n$input\n", expected, result
+        )
+        Assert.assertEquals(
+            "The 'moveValues' method returns incorrect result. Direction: $direction.\n" +
+                    "Input:\n$input\n", expectedMove, actualMove
+        )
     }
 }

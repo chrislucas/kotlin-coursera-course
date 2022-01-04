@@ -35,7 +35,6 @@ fun <T : Any> List<T?>.moveAndMergeEqual(merge: (T) -> T): List<T> =
         }
 
         mergeAdjacentEquals()
-
         filtered.toList()
     }
 

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="games.game2048.TestMoveValues" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-01-04T04:09:50" hostname="BR0C02DX78ZMD6N" time="0.034">
+  <properties/>
+  <testcase name="testMerge3" classname="games.game2048.TestMoveValues" time="0.034"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

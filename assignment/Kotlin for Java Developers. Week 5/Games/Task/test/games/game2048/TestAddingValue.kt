@@ -23,11 +23,11 @@ class TestAddingValue : AbstractTestGameWithSmallNumbers() {
         val result = board.toTestBoard()
         Assert.assertEquals(
                 buildString {
-                    appendln("Only one element should be different after adding a new element.")
-                    appendln("Input:")
-                    appendln("$inputBoard")
-                    appendln("Result:")
-                    appendln("$result")
+                    appendLine("Only one element should be different after adding a new element.")
+                    appendLine("Input:")
+                    appendLine("$inputBoard")
+                    appendLine("Result:")
+                    appendLine("$result")
                 },
                 1, inputBoard.board.indices.count { input[it] != result.board[it] })
     }

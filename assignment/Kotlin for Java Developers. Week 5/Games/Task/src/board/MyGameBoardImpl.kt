@@ -150,3 +150,12 @@ internal fun SquareBoard.checkDirection(cell: Cell, direction: Direction, cells:
         }
     }
 }
+
+internal fun fromDirectionToPosition(direction: Direction): Pair<Int, Int> {
+    return  when (direction) {
+        Direction.UP ->   -1 to 0
+        Direction.DOWN ->  1 to 0
+        Direction.LEFT ->  0 to -1
+        else -> 0 to 1
+    }
+}
