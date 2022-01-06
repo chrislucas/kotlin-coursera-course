@@ -83,49 +83,36 @@ fun GameBoard<Int?>.moveValuesInRowOrColumn(rowOrColumn: List<Cell>): Boolean {
  */
 fun GameBoard<Int?>.moveValues(direction: Direction): Boolean {
 
+
     fun merge(list: List<Int>, direction: Direction): List<Int>? {
         return list.takeIf(List<Int>::isNotEmpty)
             ?.let { values ->
-                when (direction) {
-                    Direction.DOWN, Direction.RIGHT -> {
-                        val s = values.moveAndMergeEqual {
-                            it * 2
-                        }
-                        /*
-                            Quando movemos para direita ou para baixo
-                            e juntamos os elementos semelhantes, o
-                            comportamento do jogo 2048 é unir os elementos
-                            mais a direita ou mais abaixo primeiro.
-                            Ao refazer a matriz
-                            precisamos ler esses elementos da direita
-                            para esquerda ou de baixo para cima e para
-                            fazer isso vamos inverter o array, mas isso
-                            so vai ser feito se o array original que
-                            representa uma linha ou coluna da matriz/board
-                            tiver menos elementos que a linha ou coluna
-                            completa isso porque nesse caso os elementos
-                            se unem a partir da direita para esquerda ou
-                            de baixo para cima mas quando a linha ou
-                            coluna esta cheia, os elementos iguais se
-                            unem em pares da esquerda para direita
+                val s = values.moveAndMergeEqual {
+                    it * 2
+                }
+                /*
+                    Quando movemos colunas para direita ou linhas
+                    para baixo devemos tomar o cuidado de como o merge
+                    das colunas e linhas é feito para um caso especifiico
+                    - Quando num tabuleiro de dimensao par o numero
+                    de elementos na linha ou coluna é impar e todos iguais
+                    somamos fazemos o merge da direita para esquerda
 
-                            exemplo
-                            linha 22-2 - MOVE PARA DIREITA -> --24 ler da direita
-                            para esquerda ou inverter o vetor
-                            linha 2242 - MOVE PARA DIREITA -> -442 ler normalmente
-                         */
-                        if (values.size < width)
-                            s.reversed()
-                        else
-                            s
-                    }
+                        - o problema é que a forma que o exercicio foi
+                        estruturado nao conseguimos controlar isso na funcao
+                        moveAndMergeEqual {} mas como os numeros sao iguais
+                        podemos fazer o merge da esqquerda para direita e inverter
+                 */
 
-                    else -> {
-                        val s = values.moveAndMergeEqual {
-                            it * 2
-                        }
-                        s
-                    }
+                val check = values.size and 1 == 1 &&
+                        values.size > 1 &&
+                        values.size < this.width &&
+                        values.isAllEquals()
+
+                if ((direction == Direction.RIGHT || direction == Direction.DOWN) && check) {
+                    s.reversed()
+                } else {
+                    s
                 }
             }
     }

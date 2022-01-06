@@ -8,14 +8,12 @@ import games.game.Game
  * When you finish, you can play the game by executing 'PlayGameOfFifteen'.
  */
 fun newGameOfFifteen(initializer: GameOfFifteenInitializer = RandomGameInitializer()): Game =
-    GameImpl(initializer)
+    GameOfFifteenImpl(initializer)
 
 
-class GameImpl(private val initValue: GameOfFifteenInitializer) : Game {
+class GameOfFifteenImpl(private val initValue: GameOfFifteenInitializer) : Game {
 
     private val board = createGameBoard<Int?>(4)
-
-    private var lastMovement: Direction? = null
 
     override fun initialize() {
         val values = initValue.initialPermutation
@@ -25,11 +23,11 @@ class GameImpl(private val initValue: GameOfFifteenInitializer) : Game {
                 board[cell] = values[idx++]
             }
         }
-        //println(board)
     }
 
     override fun canMove(): Boolean {
-        return true //getValuesInBoard().parityOfPermutation()
+        // TODO consertar essa funcao
+        return ! hasWon() || isEven(getValuesInBoard())
     }
 
     override fun hasWon(): Boolean = getValuesInBoard().isSorted()
@@ -38,12 +36,12 @@ class GameImpl(private val initValue: GameOfFifteenInitializer) : Game {
         board.getAllCells().mapNotNull { cell -> board[cell] }
 
     override fun processMove(direction: Direction) {
-        //lastMovement = direction
         fun filter(cells: List<Cell>): List<Int> {
             return cells
                 .filter { cell -> board[cell] != null }
                 .mapNotNull { cell -> board[cell] }
         }
+
         fun moveRowOrColumn() {
             val width = board.width
             when (direction) {
@@ -105,8 +103,7 @@ class GameImpl(private val initValue: GameOfFifteenInitializer) : Game {
                              */
                             val emptyCell = board.getColumn(1..width, i)
                                 .find { cell -> board[cell] == null }
-                            emptyCell?.let {
-                                    cell ->
+                            emptyCell?.let { cell ->
                                 if (direction == Direction.UP) {
                                     with(board) {
                                         val downCell = getCell(cell.i + 1, cell.j)

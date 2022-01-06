@@ -39,3 +39,10 @@ fun <T : Any> List<T?>.moveAndMergeEqual(merge: (T) -> T): List<T> =
     }
 
 
+fun <T:Comparable<T>> List<T>.isAllEquals() : Boolean {
+    for (i in 1 until this.size) {
+        if (this[i] != this[i-1])
+            return false
+    }
+    return true
+}
